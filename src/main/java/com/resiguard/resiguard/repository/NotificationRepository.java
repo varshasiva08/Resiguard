@@ -1,0 +1,9 @@
+package com.resiguard.resiguard.repository;
+import com.resiguard.resiguard.model.Notification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+    List<Notification> findByRecipientIdOrderByCreatedAtDesc(Long userId);
+    List<Notification> findByRecipientIdAndReadFalse(Long userId);
+    long countByRecipientIdAndReadFalse(Long userId);
+}

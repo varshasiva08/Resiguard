@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ResiGuard — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg:#0d1117; --surface:#161b22; --surface2:#1c2330;
+    --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.11);
+    --text:#e6edf3; --text2:#8b949e; --text3:#484f58;
+    --accent:#58a6ff; --green:#3fb950; --red:#f85149; --yellow:#d29922;
+    --green-dim:rgba(63,185,80,0.12); --red-dim:rgba(248,81,73,0.12);
+    --yellow-dim:rgba(210,153,34,0.12); --accent-dim:rgba(88,166,255,0.1);
+    --radius:10px; --sidebar-w:232px;
+  }
+  html,body{height:100%;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px;line-height:1.5;}
+  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:transparent;} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:10;}
+  .sidebar-logo{padding:20px 18px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+  .logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#1f6feb,#388bfd);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .logo-text{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.3px;}
+  .logo-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+  .nav{flex:1;padding:12px 10px;overflow-y:auto;}
+  .nav-section{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);padding:10px 8px 5px;}
+  .nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.12s;margin-bottom:1px;user-select:none;}
+  .nav-item:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+  .nav-item.active{background:rgba(88,166,255,0.12);color:var(--accent);}
+  .nav-item .icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+  .notif-pill{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:600;border-radius:99px;padding:1px 6px;min-width:18px;text-align:center;}
+  .sidebar-foot{padding:14px 16px;border-top:1px solid var(--border);}
+  .user-card{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .user-avatar{width:32px;height:32px;background:linear-gradient(135deg,#1f6feb,#388bfd);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+  .user-info .name{font-size:13px;font-weight:600;color:var(--text);}
+  .user-info .role{font-size:10px;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:1px 7px;border-radius:99px;margin-top:2px;}
+  .btn-logout{width:100%;padding:7px;border-radius:var(--radius);background:var(--red-dim);border:1px solid rgba(248,81,73,0.2);color:var(--red);font-size:12px;font-weight:500;cursor:pointer;transition:background 0.15s;font-family:inherit;}
+  .btn-logout:hover{background:rgba(248,81,73,0.22);}
+
+  .main{margin-left:var(--sidebar-w);flex:1;padding:28px 32px;min-height:100vh;}
+  .page{display:none;} .page.active{display:block;}
+  .page-header{margin-bottom:22px;}
+  .page-title{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.4px;}
+  .page-sub{font-size:13px;color:var(--text2);margin-top:3px;}
+
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:border-color 0.15s;}
+  .stat-card:hover{border-color:var(--border2);}
+  .stat-icon{font-size:20px;margin-bottom:10px;}
+  .stat-value{font-size:26px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;}
+  .stat-label{font-size:12px;color:var(--text2);margin-top:3px;}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;}
+  .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .card-title{font-size:14px;font-weight:600;color:var(--text);}
+
+  .tbl-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;}
+  th{text-align:left;padding:9px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--text3);border-bottom:1px solid var(--border);}
+  td{padding:11px 14px;font-size:13px;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;} tr:hover td{background:rgba(255,255,255,0.015);}
+
+  .badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.3px;}
+  .badge-green{background:var(--green-dim);color:#3fb950;} .badge-yellow{background:var(--yellow-dim);color:#e3b341;}
+  .badge-red{background:var(--red-dim);color:#f85149;} .badge-blue{background:var(--accent-dim);color:var(--accent);}
+
+  .form-group{margin-bottom:14px;}
+  .form-group label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;}
+  .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color 0.15s;}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);background:rgba(88,166,255,0.04);}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text3);}
+  .form-group select option{background:var(--surface2);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .form-group textarea{resize:vertical;min-height:80px;}
+
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity 0.15s,background 0.15s;border:none;}
+  .btn-primary{background:#1f6feb;color:#fff;} .btn-primary:hover{background:#388bfd;} .btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+  .btn-sm{padding:5px 12px;font-size:12px;}
+  .btn-success{background:var(--green-dim);border:1px solid rgba(63,185,80,0.25);color:var(--green);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;margin-right:4px;transition:background 0.15s;}
+  .btn-success:hover{background:rgba(63,185,80,0.22);}
+  .btn-danger{background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);color:var(--red);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-danger:hover{background:rgba(248,81,73,0.22);}
+  .btn-ghost{background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--text2);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+
+  .msg{padding:9px 13px;border-radius:var(--radius);font-size:13px;margin-top:10px;display:none;}
+  .msg.success{background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);color:var(--green);}
+  .msg.error{background:var(--red-dim);border:1px solid rgba(248,81,73,0.2);color:var(--red);}
+  .empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:13px;}
+  .empty-icon{font-size:28px;margin-bottom:8px;}
+
+  .pass-code{font-family:'DM Mono',monospace;background:var(--accent-dim);color:var(--accent);padding:2px 9px;border-radius:6px;font-size:12px;letter-spacing:1px;}
+  .search-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .search-input{flex:1;min-width:180px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s;}
+  .search-input:focus{border-color:var(--accent);}
+  .search-input::placeholder{color:var(--text3);}
+
+  .maid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+  .maid-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color 0.15s;}
+  .maid-card:hover{border-color:var(--border2);}
+  .maid-card-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+  .maid-card-info{font-size:12px;color:var(--text2);margin-bottom:3px;}
+  .maid-card-info span{color:var(--text);}
+
+  .work-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;transition:border-color 0.15s;}
+  .work-card:hover{border-color:var(--border2);}
+  .work-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .work-card-who{font-size:15px;font-weight:600;color:var(--text);}
+  .work-card-flat{font-size:13px;color:var(--text2);margin-top:3px;}
+  .work-card-desc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;}
+  .work-card-meta{font-size:12px;color:var(--text2);margin-bottom:14px;}
+  .work-card-actions{display:flex;gap:10px;}
+  .btn-accept-big{flex:1;padding:11px;background:var(--green-dim);border:1px solid rgba(63,185,80,0.3);border-radius:var(--radius);color:var(--green);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-accept-big:hover{background:rgba(63,185,80,0.25);}
+  .btn-reject-big{flex:1;padding:11px;background:var(--red-dim);border:1px solid rgba(248,81,73,0.3);border-radius:var(--radius);color:var(--red);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-reject-big:hover{background:rgba(248,81,73,0.25);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:100;align-items:center;justify-content:center;padding:20px;}
+  .modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;width:100%;max-width:460px;position:relative;}
+  .modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:18px;}
+  .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer;padding:4px;border-radius:6px;transition:color 0.15s;}
+  .modal-close:hover{color:var(--text);}
+  .modal-foot{display:flex;gap:10px;margin-top:18px;}
+
+  .verify-input-row{display:flex;gap:10px;margin-bottom:16px;}
+  .verify-code-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;outline:none;transition:border-color 0.15s;}
+  .verify-code-input:focus{border-color:var(--accent);}
+  .verify-code-input::placeholder{letter-spacing:0;font-family:'DM Sans',sans-serif;font-size:13px;}
+  .verify-result-card{border-radius:12px;padding:18px;margin-top:4px;}
+  .verify-result-card.ok{background:var(--green-dim);border:1px solid rgba(63,185,80,0.25);}
+  .verify-result-card.err{background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);}
+
+  .guard-maid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+  .guard-maid-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;}
+  .guard-maid-avatar{width:40px;height:40px;background:linear-gradient(135deg,#238636,#2ea043);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .guard-maid-name{font-size:14px;font-weight:600;color:var(--text);}
+  .guard-maid-flat{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:12px;font-weight:600;padding:2px 10px;border-radius:99px;margin-top:3px;}
+  .guard-maid-meta{font-size:12px;color:var(--text2);margin-top:3px;}
+
+  .notif-item{padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .notif-item:last-child{border-bottom:none;}
+  .notif-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;}
+  .notif-dot.read{background:transparent;border:1px solid var(--text3);}
+  .notif-title{font-size:13px;font-weight:600;color:var(--text);}
+  .notif-title.read{color:var(--text2);font-weight:400;}
+  .notif-msg{font-size:12px;color:var(--text2);margin-top:2px;}
+  .notif-type{font-size:11px;color:var(--text3);margin-top:3px;}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">🏘️</div>
+    <div><div class="logo-text">ResiGuard</div><div class="logo-sub">Community Management</div></div>
+  </div>
+  <nav class="nav" id="navMenu"></nav>
+  <div class="sidebar-foot">
+    <div class="user-card">
+      <div class="user-avatar" id="userAvatarInitial">?</div>
+      <div class="user-info">
+        <div class="name" id="sidebarName">Loading…</div>
+        <div class="role" id="sidebarRole"></div>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="logout()">Sign Out</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="page-header">
+      <div class="page-title">Welcome back, <span id="welcomeName"></span> 👋</div>
+      <div class="page-sub">Here's what's happening in your community today.</div>
+    </div>
+    <div class="stats-grid" id="homeStats"></div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">Recent Notifications</div>
+      <div id="recentNotifs"><div class="empty"><div class="empty-icon">🔔</div>Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- GUEST ENTRIES (Resident) -->
+  <div class="page" id="page-guests">
+    <div class="page-header"><div class="page-title">Guest Entry Requests</div><div class="page-sub">Review and approve visitors to your flat.</div></div>
+    <div class="card"><div class="card-title" style="margin-bottom:14px;">Entry History</div>
+      <div class="tbl-wrap" id="guestEntriesList"><div class="empty"><div class="empty-icon">🚪</div>Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- FIND MAIDS (Resident) -->
+  <div class="page" id="page-maids">
+    <div class="page-header"><div class="page-title">Find Maids</div><div class="page-sub">Search and hire domestic helpers in your community.</div></div>
+    <div class="card">
+      <div class="search-row">
+        <input class="search-input" type="text" id="maidSearch" placeholder="Search by name…" onkeydown="if(event.key==='Enter') searchMaids()"/>
+        <button class="btn btn-primary" onclick="searchMaids()">Search</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('maidSearch').value='';searchMaids()">Show All</button>
+      </div>
+      <div id="maidsList"><div class="empty"><div class="empty-icon">🧹</div>Click Search to find maids</div></div>
+    </div>
+    <div class="msg" id="maidsPageMsg"></div>
+  </div>
+
+  <!-- SERVICE PROVIDERS (Resident) -->
+  <div class="page" id="page-providers">
+    <div class="page-header"><div class="page-title">Service Providers</div><div class="page-sub">Find plumbers, electricians, and more.</div></div>
+    <div class="card">
+      <div class="search-row">
+        <input class="search-input" type="text" id="providerSearch" placeholder="Search by name…" onkeydown="if(event.key==='Enter') searchProviders()"/>
+        <select id="categoryFilter" style="background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;outline:none;font-family:inherit;">
+          <option value="">All Categories</option>
+          <option value="PLUMBER">Plumber</option>
+          <option value="ELECTRICIAN">Electrician</option>
+          <option value="CARPENTER">Carpenter</option>
+          <option value="CLEANER">Cleaner</option>
+          <option value="PAINTER">Painter</option>
+        </select>
+        <button class="btn btn-primary" onclick="searchProviders()">Search</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('providerSearch').value='';document.getElementById('categoryFilter').value='';searchProviders()">Show All</button>
+      </div>
+      <div id="providersList"><div class="empty"><div class="empty-icon">🔧</div>Click Search to find providers</div></div>
+    </div>
+    <div class="msg" id="providersPageMsg"></div>
+  </div>
+
+  <!-- REQUEST ENTRY (Guest) -->
+  <div class="page" id="page-request-entry">
+    <div class="page-header"><div class="page-title">Request Entry</div><div class="page-sub">Send a visit request to a resident.</div></div>
+    <div class="card" style="max-width:480px;">
+      <div class="card-title" style="margin-bottom:14px;">New Entry Request</div>
+      <div class="form-group"><label>Resident ID</label><input type="number" id="entryResidentId" placeholder="Enter Resident's user ID"/></div>
+      <div class="form-group"><label>Purpose of Visit</label><input type="text" id="entryPurpose" placeholder="e.g. Family visit, Delivery…"/></div>
+      <button class="btn btn-primary" onclick="requestEntry()">Send Request</button>
+      <div class="msg" id="entryMsg"></div>
+    </div>
+    <div class="card" style="margin-top:0;">
+      <div class="card-title" style="margin-bottom:14px;">My Entry History</div>
+      <div class="tbl-wrap" id="myEntryHistory"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- WORK REQUESTS (Maid) -->
+  <div class="page" id="page-work-requests">
+    <div class="page-header"><div class="page-title">Your Work Requests</div><div class="page-sub">Residents who want to hire you. Accept or decline below.</div></div>
+    <div id="workRequestsList"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div>
+  </div>
+
+  <!-- SERVICE REQUESTS (Provider) -->
+  <div class="page" id="page-service-requests">
+    <div class="page-header"><div class="page-title">Service Requests</div><div class="page-sub">Manage service requests from residents.</div></div>
+    <div class="card"><div class="tbl-wrap" id="serviceRequestsList"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div></div>
+  </div>
+
+  <!-- VERIFY ENTRY (Guard) -->
+  <div class="page" id="page-verify">
+    <div class="page-header"><div class="page-title">Verify Guest Entry</div><div class="page-sub">Check pass codes and log entry or exit.</div></div>
+    <div class="card" style="max-width:500px;">
+      <div class="card-title" style="margin-bottom:14px;">Verify Pass Code</div>
+      <div class="verify-input-row">
+        <input class="verify-code-input" type="text" id="passCode" placeholder="Enter 8-char pass code" maxlength="8" onkeydown="if(event.key==='Enter') verifyPass()"/>
+        <button class="btn btn-primary" onclick="verifyPass()">Verify</button>
+      </div>
+      <div id="verifyResult"></div>
+    </div>
+  </div>
+
+  <!-- APPROVED MAIDS (Guard) -->
+  <div class="page" id="page-approved-maids">
+    <div class="page-header"><div class="page-title">Approved Maids</div><div class="page-sub">All maids with accepted work requests — use house number for maid entry.</div></div>
+    <div class="card"><div id="approvedMaidsList"><div class="empty"><div class="empty-icon">🧹</div>Loading…</div></div></div>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="page" id="page-admin">
+    <div class="page-header"><div class="page-title">Admin Panel</div><div class="page-sub">Manage users and system operations.</div></div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">⏳ Pending Profile Approvals</div></div>
+      <div class="tbl-wrap" id="pendingProfiles"><div class="empty">Loading…</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">📊 System Report</div>
+      <div id="systemReport"><div class="empty">Loading…</div></div>
+    </div>
+    <div class="card" style="max-width:480px;">
+      <div class="card-title" style="margin-bottom:14px;">📢 Broadcast Notification</div>
+      <div class="form-group"><label>Title</label><input type="text" id="notifTitle" placeholder="Notification title"/></div>
+      <div class="form-group"><label>Message</label><input type="text" id="notifMessage" placeholder="Your message…"/></div>
+      <div class="form-group"><label>Send To</label>
+        <select id="notifRole">
+          <option value="">All Users</option>
+          <option value="RESIDENT">All Residents</option>
+          <option value="MAID">All Maids</option>
+          <option value="SERVICE_PROVIDER">All Service Providers</option>
+          <option value="SECURITY_GUARD">All Guards</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="sendNotification()">Send Notification</button>
+      <div class="msg" id="notifMsg"></div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="page" id="page-notifications">
+    <div class="page-header"><div class="page-title">Notifications</div><div class="page-sub">Your recent alerts and updates.</div></div>
+    <div class="card"><div id="notificationsList"><div class="empty"><div class="empty-icon">🔔</div>Loading…</div></div></div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- HIRE MAID MODAL -->
+<div class="overlay" id="hireMaidOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeHireForm()">✕</button>
+    <div class="modal-title" id="hireMaidTitle">Hire Maid</div>
+    <input type="hidden" id="hireMaidId"/>
+    <input type="hidden" id="hireMaidName"/>
+    <div class="form-group"><label>Describe the Work</label><textarea id="hireMaidDesc" placeholder="e.g. Daily cleaning, cooking, laundry…"></textarea></div>
+    <div class="form-group"><label>Preferred Work Timings</label><input type="text" id="hireMaidTimings" placeholder="e.g. 7am – 9am, Mon–Sat"/></div>
+    <div class="form-group"><label>Start Date (optional)</label><input type="date" id="hireMaidStart"/></div>
+    <div class="msg" id="hireMaidMsg"></div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" style="flex:1;" onclick="submitHireMaid()">Send Hire Request</button>
+      <button class="btn btn-ghost" onclick="closeHireForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE REQUEST MODAL -->
+<div class="overlay" id="serviceRequestOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeServiceForm()">✕</button>
+    <div class="modal-title">Request from <span id="serviceProviderName"></span></div>
+    <input type="hidden" id="serviceProviderId"/>
+    <div class="form-group"><label>Describe the Service Needed</label><textarea id="serviceDesc" placeholder="e.g. Fix a leaking pipe in the kitchen…"></textarea></div>
+    <div class="form-group"><label>Preferred Date &amp; Time</label><input type="text" id="serviceDateTime" placeholder="e.g. Tomorrow 10am, Sat morning…"/></div>
+    <div class="msg" id="serviceRequestMsg"></div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" style="flex:1;" onclick="submitServiceRequest()">Send Request</button>
+      <button class="btn btn-ghost" onclick="closeServiceForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- REJECT WORK MODAL -->
+<div class="overlay" id="rejectWorkOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeRejectWork()">✕</button>
+    <div class="modal-title">Decline Work Request</div>
+    <div class="form-group"><label>Reason (optional)</label><input type="text" id="rejectWorkReason" placeholder="e.g. Already booked, location too far…"/></div>
+    <input type="hidden" id="rejectWorkId"/>
+    <div class="modal-foot">
+      <button class="btn btn-danger" style="flex:1;" onclick="submitRejectWork()">Decline</button>
+      <button class="btn btn-ghost" onclick="closeRejectWork()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- REJECT SERVICE MODAL -->
+<div class="overlay" id="rejectServiceOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeRejectService()">✕</button>
+    <div class="modal-title">Reject Service Request</div>
+    <div class="form-group"><label>Reason (optional)</label><input type="text" id="rejectServiceReason" placeholder="e.g. Not available on that date…"/></div>
+    <input type="hidden" id="rejectServiceId"/>
+    <div class="modal-foot">
+      <button class="btn btn-danger" style="flex:1;" onclick="submitRejectService()">Reject</button>
+      <button class="btn btn-ghost" onclick="closeRejectService()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const token=localStorage.getItem('token'),userId=localStorage.getItem('userId'),userName=localStorage.getItem('userName'),userRole=localStorage.getItem('userRole');
+if(!token){window.location.href='/login';}
+document.getElementById('sidebarName').textContent=userName||'User';
+document.getElementById('sidebarRole').textContent=(userRole||'').replace(/_/g,' ');
+document.getElementById('welcomeName').textContent=userName||'User';
+document.getElementById('userAvatarInitial').textContent=(userName||'U')[0].toUpperCase();
+
+const navMenus={
+  RESIDENT:[{icon:'🏠',label:'Home',page:'home'},{icon:'🚪',label:'Guest Entries',page:'guests'},{icon:'🧹',label:'Find Maids',page:'maids'},{icon:'🔧',label:'Service Providers',page:'providers'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  GUEST:[{icon:'🏠',label:'Home',page:'home'},{icon:'📥',label:'Request Entry',page:'request-entry'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  MAID:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Work Requests',page:'work-requests'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  SERVICE_PROVIDER:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Service Requests',page:'service-requests'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  SECURITY_GUARD:[{icon:'🏠',label:'Home',page:'home'},{icon:'✅',label:'Verify Entry',page:'verify'},{icon:'🧹',label:'Approved Maids',page:'approved-maids'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  ADMIN:[{icon:'🏠',label:'Home',page:'home'},{icon:'⚙️',label:'Admin Panel',page:'admin'},{icon:'🔔',label:'Notifications',page:'notifications'}]
+};
+const menu=navMenus[userRole]||navMenus['RESIDENT'];
+const navEl=document.getElementById('navMenu');
+menu.forEach(item=>{
+  const el=document.createElement('div');
+  el.className='nav-item'; el.setAttribute('data-page',item.page);
+  el.innerHTML=`<span class="icon">${item.icon}</span>${item.label}${item.page==='notifications'?'<span class="notif-pill" id="navNotifCount" style="display:none;"></span>':''}`;
+  el.onclick=()=>showPage(item.page); navEl.appendChild(el);
+});
+
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pe=document.getElementById('page-'+page); if(pe) pe.classList.add('active');
+  const ni=document.querySelector(`[data-page="${page}"]`); if(ni) ni.classList.add('active');
+  ({home:loadHome,guests:loadGuestEntries,'request-entry':loadMyEntries,'work-requests':loadWorkRequests,'service-requests':loadServiceRequests,admin:loadAdmin,notifications:loadNotifications,'approved-maids':loadApprovedMaids})[page]?.();
+}
+
+async function api(method,url,body){
+  const opts={method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}};
+  if(body) opts.body=JSON.stringify(body);
+  const res=await fetch(url,opts); return res.json();
+}
+function statusBadge(s){
+  const map={PENDING:'badge-yellow',APPROVED:'badge-green',REJECTED:'badge-red',ACCEPTED:'badge-green',COMPLETED:'badge-green',ACTIVE:'badge-green',INACTIVE:'badge-red',GOLD:'badge-yellow',SILVER:'badge-blue',BRONZE:'badge-blue',SERVICE_PROVIDER:'badge-blue',MAID:'badge-green',RESIDENT:'badge-blue',SECURITY_GUARD:'badge-yellow',ADMIN:'badge-red'};
+  return `<span class="badge ${map[s]||'badge-blue'}">${(s||'').replace(/_/g,' ')}</span>`;
+}
+function showMsg(id,type,text){
+  const el=document.getElementById(id); if(!el) return;
+  el.className='msg '+type; el.textContent=text; el.style.display='block';
+  setTimeout(()=>{el.style.display='none';},5000);
+}
+
+/* HOME */
+async function loadHome(){
+  loadNotificationsPreview();
+  const stats=[];
+  if(userRole==='RESIDENT'){
+    try{
+      const[wr,sr,ge]=await Promise.all([api('GET',`/api/service/resident/${userId}/work-requests`),api('GET',`/api/service/resident/${userId}/service-requests`),api('GET',`/api/visitor/history/resident/${userId}`)]);
+      stats.push({icon:'🚪',label:'Guest Requests',value:ge.success?ge.data.length:'—'});
+      stats.push({icon:'🧹',label:'Maid Requests',value:wr.success?wr.data.length:'—'});
+      stats.push({icon:'🔧',label:'Service Requests',value:sr.success?sr.data.length:'—'});
+      const pg=ge.success?ge.data.filter(e=>e.status==='PENDING').length:0;
+      if(pg>0) stats.push({icon:'⏳',label:'Pending Guest Approvals',value:pg});
+    }catch(e){}
+  }else if(userRole==='MAID'){
+    try{
+      const r=await api('GET',`/api/service/maid/${userId}/history`);
+      if(r.success){stats.push({icon:'📋',label:'Total Requests',value:r.data.length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(w=>w.status==='PENDING').length});stats.push({icon:'✅',label:'Active Jobs',value:r.data.filter(w=>w.status==='ACCEPTED').length});stats.push({icon:'❌',label:'Declined',value:r.data.filter(w=>w.status==='REJECTED').length});}
+    }catch(e){}
+  }else if(userRole==='SERVICE_PROVIDER'){
+    try{
+      const r=await api('GET',`/api/service/provider/${userId}/history`);
+      if(r.success){stats.push({icon:'📋',label:'Total Requests',value:r.data.length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(s=>s.status==='PENDING').length});stats.push({icon:'✅',label:'Accepted',value:r.data.filter(s=>s.status==='ACCEPTED').length});stats.push({icon:'❌',label:'Rejected',value:r.data.filter(s=>s.status==='REJECTED').length});}
+    }catch(e){}
+  }else if(userRole==='SECURITY_GUARD'){
+    try{const r=await api('GET','/api/service/maids/approved');stats.push({icon:'🧹',label:'Approved Maids on Premises',value:r.success?r.data.length:'—'});}catch(e){stats.push({icon:'🧹',label:'Approved Maids',value:'—'});}
+    stats.push({icon:'🏢',label:'Duty Status',value:'On Duty'});stats.push({icon:'🛡️',label:'Gate Security',value:'Active'});
+  }else if(userRole==='GUEST'){
+    try{const r=await api('GET',`/api/visitor/history/guest/${userId}`);if(r.success){stats.push({icon:'📋',label:'Entry Requests',value:r.data.length});stats.push({icon:'✅',label:'Approved',value:r.data.filter(e=>e.status==='APPROVED').length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(e=>e.status==='PENDING').length});}}catch(e){}
+  }else if(userRole==='ADMIN'){
+    try{const r=await api('GET','/api/admin/report');if(r.success){const d=r.data;stats.push({icon:'👤',label:'Total Users',value:d.totalUsers});stats.push({icon:'🚪',label:'Guest Entries',value:d.totalGuestEntries});stats.push({icon:'🧹',label:'Work Requests',value:d.totalWorkRequests});stats.push({icon:'🔧',label:'Service Requests',value:d.totalServiceRequests});stats.push({icon:'⏳',label:'Pending Approvals',value:d.pendingProfiles});stats.push({icon:'⭐',label:'Total Ratings',value:d.totalRatings});}}catch(e){}
+  }
+  document.getElementById('homeStats').innerHTML=stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div></div>`).join('');
+}
+
+async function loadNotificationsPreview(){
+  const el=document.getElementById('recentNotifs');
+  try{
+    const r=await api('GET',`/api/notifications/${userId}/unread`);
+    if(r&&r.success&&r.data&&r.data.length>0){
+      const badge=document.getElementById('navNotifCount');
+      if(badge){badge.textContent=r.data.length;badge.style.display='';}
+      el.innerHTML=r.data.slice(0,5).map(n=>`<div class="notif-item"><div class="notif-dot"></div><div style="flex:1;"><div class="notif-title">${n.title||''}</div><div class="notif-msg">${n.message||''}</div><div class="notif-type">${(n.type||'').replace(/_/g,' ')}</div></div></div>`).join('');
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">✓</div>All caught up — no unread notifications</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Could not load notifications</div>';}
+}
+
+/* GUEST ENTRIES */
+async function loadGuestEntries(){
+  const el=document.getElementById('guestEntriesList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const r=await api('GET',`/api/visitor/history/resident/${userId}`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<table><tr><th>Guest</th><th>Purpose</th><th>Status</th><th>Pass Code</th><th>Action</th></tr>${r.data.map(e=>`<tr><td style="color:var(--text);font-weight:500;">${e.guest?.name||'—'}</td><td>${e.purpose||'—'}</td><td>${statusBadge(e.status)}</td><td>${e.entryPassCode?`<span class="pass-code">${e.entryPassCode}</span>`:'—'}</td><td>${e.status==='PENDING'?`<button class="btn-success" onclick="decideEntry(${e.id},true)">✓ Approve</button><button class="btn-danger" onclick="decideEntry(${e.id},false)">✗ Reject</button>`:'—'}</td></tr>`).join('')}</table>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🚪</div>No guest entry requests yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+async function decideEntry(entryId,approved){
+  const reason=approved?null:prompt('Rejection reason (optional):');
+  try{const r=await api('PUT',`/api/visitor/entry/${entryId}/decide?residentId=${userId}`,{approved,rejectionReason:reason});if(r.success)loadGuestEntries();else alert(r.message);}catch(e){alert('Error');}
+}
+
+/* REQUEST ENTRY (Guest) */
+async function requestEntry(){
+  const residentId=document.getElementById('entryResidentId').value,purpose=document.getElementById('entryPurpose').value;
+  if(!residentId||!purpose){showMsg('entryMsg','error','Please fill all fields.');return;}
+  try{
+    const r=await api('POST',`/api/visitor/guest/${userId}/request`,{residentId:parseInt(residentId),purpose});
+    if(r.success){showMsg('entryMsg','success','Entry request sent! Wait for resident approval.');document.getElementById('entryResidentId').value='';document.getElementById('entryPurpose').value='';loadMyEntries();}
+    else showMsg('entryMsg','error',r.message);
+  }catch(e){showMsg('entryMsg','error','Error: '+(e.message||'Could not send request'));}
+}
+async function loadMyEntries(){
+  const el=document.getElementById('myEntryHistory');
+  try{
+    const r=await api('GET',`/api/visitor/history/guest/${userId}`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<table><tr><th>Resident Flat</th><th>Purpose</th><th>Status</th><th>Pass Code</th></tr>${r.data.map(e=>`<tr><td style="color:var(--text);font-weight:500;">${e.resident?.flatNumber||'—'} — ${e.resident?.buildingName||''}</td><td>${e.purpose||'—'}</td><td>${statusBadge(e.status)}</td><td>${e.entryPassCode?`<span class="pass-code">${e.entryPassCode}</span>`:'—'}</td></tr>`).join('')}</table>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No entries yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+
+/* MAIDS */
+async function searchMaids(){
+  const name=document.getElementById('maidSearch').value.trim(),el=document.getElementById('maidsList');
+  el.innerHTML='<div class="empty">Searching…</div>';
+  try{
+    const r=await api('GET',`/api/service/maids${name?'?name='+encodeURIComponent(name):''}`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<div class="maid-cards">${r.data.map(m=>`<div class="maid-card"><div class="maid-card-name">${m.name}</div><div class="maid-card-info">📱 <span>${m.phone||'—'}</span></div><div class="maid-card-info">⭐ <span>${(m.averageRating||0).toFixed(1)}</span><span style="color:var(--text3);"> (${m.totalRatings||0} ratings)</span></div><div style="margin-top:8px;">${statusBadge(m.status)}</div><button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px;justify-content:center;" onclick="openHireMaidForm(${m.id},'${m.name.replace(/'/g,"\\'")}')">Hire ${m.name.split(' ')[0]}</button></div>`).join('')}</div>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🧹</div>No maids found</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Search failed</div>';}
+}
+function openHireMaidForm(maidId,maidName){
+  document.getElementById('hireMaidOverlay').style.display='flex';
+  document.getElementById('hireMaidTitle').textContent='Hire '+maidName;
+  document.getElementById('hireMaidId').value=maidId;
+  document.getElementById('hireMaidName').value=maidName;
+  document.getElementById('hireMaidDesc').value='';
+  document.getElementById('hireMaidTimings').value='';
+  document.getElementById('hireMaidStart').value='';
+}
+async function submitHireMaid(){
+  const maidId=parseInt(document.getElementById('hireMaidId').value),maidName=document.getElementById('hireMaidName').value,desc=document.getElementById('hireMaidDesc').value.trim(),timings=document.getElementById('hireMaidTimings').value.trim(),start=document.getElementById('hireMaidStart').value||null;
+  if(!desc){showMsg('hireMaidMsg','error','Please describe the work.');return;}
+  try{
+    const r=await api('POST',`/api/service/maid/hire/${userId}`,{maidId,description:desc,workTimings:timings,startDate:start});
+    if(r.success){closeHireForm();const m=document.getElementById('maidsPageMsg');m.className='msg success';m.textContent=`Work request sent to ${maidName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}
+    else showMsg('hireMaidMsg','error',r.message);
+  }catch(e){showMsg('hireMaidMsg','error','Error sending request');}
+}
+function closeHireForm(){document.getElementById('hireMaidOverlay').style.display='none';}
+
+/* PROVIDERS */
+async function searchProviders(){
+  const name=document.getElementById('providerSearch').value.trim(),category=document.getElementById('categoryFilter').value,el=document.getElementById('providersList');
+  el.innerHTML='<div class="empty">Searching…</div>';
+  const params=new URLSearchParams();if(name)params.append('name',name);if(category)params.append('category',category);
+  try{
+    const r=await api('GET',`/api/service/providers?${params}`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<table><tr><th>Name</th><th>Category</th><th>Business</th><th>Rating</th><th>Action</th></tr>${r.data.map(p=>`<tr><td style="color:var(--text);font-weight:500;">${p.name}</td><td>${p.category||'—'}</td><td>${p.businessName||'—'}</td><td>⭐ ${(p.averageRating||0).toFixed(1)}</td><td><button class="btn-success" onclick="openServiceRequestForm(${p.id},'${p.name.replace(/'/g,"\\'")}')">Request</button></td></tr>`).join('')}</table>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🔧</div>No providers found</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Search failed</div>';}
+}
+function openServiceRequestForm(providerId,name){
+  document.getElementById('serviceRequestOverlay').style.display='flex';
+  document.getElementById('serviceProviderName').textContent=name;
+  document.getElementById('serviceProviderId').value=providerId;
+  document.getElementById('serviceDesc').value='';
+  document.getElementById('serviceDateTime').value='';
+}
+async function submitServiceRequest(){
+  const providerId=parseInt(document.getElementById('serviceProviderId').value),provName=document.getElementById('serviceProviderName').textContent,desc=document.getElementById('serviceDesc').value.trim(),dt=document.getElementById('serviceDateTime').value.trim();
+  if(!desc){showMsg('serviceRequestMsg','error','Please describe the service needed.');return;}
+  try{
+    const r=await api('POST',`/api/service/provider/request/${userId}`,{serviceProviderId:providerId,description:desc,preferredDateTime:dt});
+    if(r.success){closeServiceForm();const m=document.getElementById('providersPageMsg');m.className='msg success';m.textContent=`Service request sent to ${provName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}
+    else showMsg('serviceRequestMsg','error',r.message);
+  }catch(e){showMsg('serviceRequestMsg','error','Error sending request');}
+}
+function closeServiceForm(){document.getElementById('serviceRequestOverlay').style.display='none';}
+
+/* WORK REQUESTS (Maid) — large card UI */
+async function loadWorkRequests(){
+  const el=document.getElementById('workRequestsList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const r=await api('GET',`/api/service/maid/${userId}/history`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=r.data.map(w=>{
+        const isPending=w.status==='PENDING';
+        return `<div class="work-card"><div class="work-card-header"><div><div class="work-card-who">👤 ${w.resident?.name||'—'}</div><div class="work-card-flat">🏠 Flat ${w.resident?.flatNumber||'—'}, ${w.resident?.buildingName||''}</div></div>${statusBadge(w.status)}</div><div class="work-card-desc"><strong style="color:var(--text);font-size:12px;letter-spacing:0.3px;text-transform:uppercase;">Work Description</strong><br/>${w.description||'—'}</div><div class="work-card-meta">${w.workTimings?`⏰ <strong>Timings:</strong> ${w.workTimings} &nbsp;&nbsp;`:''}${w.startDate?`📅 <strong>Start:</strong> ${w.startDate}`:''}</div>${isPending?`<div class="work-card-actions"><button class="btn-accept-big" onclick="respondWork(${w.id},true)">✅ Accept Job</button><button class="btn-reject-big" onclick="openRejectWork(${w.id})">❌ Decline</button></div>`:''}</div>`;
+      }).join('');
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No work requests yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+function openRejectWork(id){document.getElementById('rejectWorkId').value=id;document.getElementById('rejectWorkReason').value='';document.getElementById('rejectWorkOverlay').style.display='flex';}
+function closeRejectWork(){document.getElementById('rejectWorkOverlay').style.display='none';}
+async function submitRejectWork(){
+  const id=parseInt(document.getElementById('rejectWorkId').value),reason=document.getElementById('rejectWorkReason').value.trim()||null;
+  closeRejectWork(); await respondWork(id,false,reason);
+}
+async function respondWork(requestId,accepted,preReason){
+  try{
+    const r=await api('PUT',`/api/service/maid/request/${requestId}/respond?maidId=${userId}`,{accepted,reason:preReason||null});
+    if(r.success)loadWorkRequests(); else alert(r.message);
+  }catch(e){alert('Error');}
+}
+
+/* SERVICE REQUESTS (Provider) */
+async function loadServiceRequests(){
+  const el=document.getElementById('serviceRequestsList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const r=await api('GET',`/api/service/provider/${userId}/history`);
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<table><tr><th>Resident</th><th>Flat</th><th>Description</th><th>Preferred Time</th><th>Status</th><th>Action</th></tr>${r.data.map(s=>`<tr><td style="color:var(--text);font-weight:500;">${s.resident?.name||'—'}</td><td>${s.resident?.flatNumber||'—'}</td><td>${s.description||'—'}</td><td>${s.preferredDateTime||'—'}</td><td>${statusBadge(s.status)}</td><td>${s.status==='PENDING'?`<button class="btn-success" onclick="respondService(${s.id},true)">✓ Accept</button><button class="btn-danger" onclick="openRejectService(${s.id})">✗ Reject</button>`:'—'}</td></tr>`).join('')}</table>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No service requests yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+function openRejectService(id){document.getElementById('rejectServiceId').value=id;document.getElementById('rejectServiceReason').value='';document.getElementById('rejectServiceOverlay').style.display='flex';}
+function closeRejectService(){document.getElementById('rejectServiceOverlay').style.display='none';}
+async function submitRejectService(){
+  const id=parseInt(document.getElementById('rejectServiceId').value),reason=document.getElementById('rejectServiceReason').value.trim()||null;
+  closeRejectService(); await respondService(id,false,reason);
+}
+async function respondService(requestId,accepted,preReason){
+  try{
+    const r=await api('PUT',`/api/service/provider/request/${requestId}/respond?providerId=${userId}`,{accepted,reason:preReason||null});
+    if(r.success)loadServiceRequests(); else alert(r.message);
+  }catch(e){alert('Error');}
+}
+
+/* VERIFY ENTRY (Guard) */
+async function verifyPass(){
+  const code=document.getElementById('passCode').value.trim().toUpperCase(),el=document.getElementById('verifyResult');
+  if(!code)return;
+  try{
+    const r=await api('GET',`/api/visitor/verify/${code}`);
+    if(r.success){
+      const e=r.data;
+      el.innerHTML=`<div class="verify-result-card ok"><div style="color:var(--green);font-weight:700;font-size:15px;margin-bottom:10px;">✅ Valid Pass</div><div style="display:grid;gap:6px;font-size:13px;"><div><span style="color:var(--text2);">Guest:</span> <strong style="color:var(--text);">${e.guest?.name||'—'}</strong></div><div><span style="color:var(--text2);">Visiting:</span> <strong style="color:var(--text);">${e.resident?.name||'—'}</strong></div><div><span style="color:var(--text2);">Flat:</span> <strong style="color:var(--accent);">${e.resident?.flatNumber||'—'}, ${e.resident?.buildingName||''}</strong></div><div><span style="color:var(--text2);">Purpose:</span> ${e.purpose||'—'}</div><div><span style="color:var(--text2);">Status:</span> ${statusBadge(e.status)}</div></div><div style="display:flex;gap:10px;margin-top:14px;"><button class="btn-accept-big" style="flex:1;" onclick="logEntry(${e.id},'ENTRY')">📥 Log Entry</button><button class="btn-reject-big" style="flex:1;" onclick="logEntry(${e.id},'EXIT')">📤 Log Exit</button></div></div>`;
+    }else{
+      el.innerHTML=`<div class="verify-result-card err"><div style="color:var(--red);font-weight:700;font-size:15px;">❌ Invalid or Expired Pass</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">This pass code is not valid. Please ask the resident to share a valid code.</div></div>`;
+    }
+  }catch(e){el.innerHTML=`<div class="verify-result-card err" style="color:var(--red);">Error verifying pass code</div>`;}
+}
+async function logEntry(entryId,type){
+  try{
+    const r=await api('POST',`/api/visitor/entry/${entryId}/log?guardId=${userId}&type=${type}`);
+    if(r.success){
+      document.getElementById('verifyResult').innerHTML=`<div class="verify-result-card ok"><div style="color:var(--green);font-weight:700;font-size:15px;">${type==='ENTRY'?'✅ Entry Logged':'✅ Exit Logged'}</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">Successfully logged. The resident has been notified.</div></div>`;
+      document.getElementById('passCode').value='';
+    }else alert(r.message);
+  }catch(e){alert('Error logging entry');}
+}
+
+/* APPROVED MAIDS (Guard) */
+async function loadApprovedMaids(){
+  const el=document.getElementById('approvedMaidsList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const r=await api('GET','/api/service/maids/approved');
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<div style="font-size:12px;color:var(--text2);margin-bottom:14px;">${r.data.length} approved maid${r.data.length!==1?'s':''} found</div><div class="guard-maid-grid">${r.data.map(w=>`<div class="guard-maid-card"><div class="guard-maid-avatar">🧹</div><div style="flex:1;"><div class="guard-maid-name">${w.maid?.name||'—'}</div><div><span class="guard-maid-flat">🏠 Flat ${w.resident?.flatNumber||'—'}, ${w.resident?.buildingName||''}</span></div><div class="guard-maid-meta">📱 ${w.maid?.phone||'—'}</div>${w.workTimings?`<div class="guard-maid-meta">⏰ ${w.workTimings}</div>`:''}</div></div>`).join('')}</div>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🧹</div>No approved maids at this time</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+
+/* ADMIN */
+async function loadAdmin(){loadPendingProfiles();loadReport();}
+async function loadPendingProfiles(){
+  const el=document.getElementById('pendingProfiles');
+  try{
+    const r=await api('GET','/api/admin/profiles/pending');
+    if(r.success&&r.data.length>0){
+      el.innerHTML=`<table><tr><th>Name</th><th>Email</th><th>Role</th><th>Phone</th><th>Action</th></tr>${r.data.map(u=>`<tr><td style="color:var(--text);font-weight:500;">${u.name}</td><td>${u.email}</td><td>${statusBadge(u.role)}</td><td>${u.phone||'—'}</td><td><button class="btn-success" onclick="approveProfile(${u.id})">✓ Approve</button><button class="btn-danger" onclick="rejectProfile(${u.id})">✗ Reject</button></td></tr>`).join('')}</table>`;
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">✅</div>No pending approvals</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+async function approveProfile(id){const r=await api('PUT',`/api/admin/profiles/${id}/approve`);if(r.success)loadAdmin();else alert(r.message);}
+async function rejectProfile(id){const reason=prompt('Rejection reason:');if(!reason)return;const r=await api('PUT',`/api/admin/profiles/${id}/reject?reason=${encodeURIComponent(reason)}`);if(r.success)loadAdmin();else alert(r.message);}
+async function loadReport(){
+  const el=document.getElementById('systemReport');
+  try{const r=await api('GET','/api/admin/report');if(r.success){const d=r.data;el.innerHTML=`<div class="stats-grid" style="margin:0;">${Object.entries(d).filter(([k])=>k!=='usersByRole'&&k!=='generatedAt').map(([k,v])=>`<div class="stat-card"><div class="stat-value">${v}</div><div class="stat-label">${k.replace(/([A-Z])/g,' $1').trim()}</div></div>`).join('')}</div>`;}}catch(e){}
+}
+async function sendNotification(){
+  const title=document.getElementById('notifTitle').value.trim(),message=document.getElementById('notifMessage').value.trim(),role=document.getElementById('notifRole').value;
+  if(!title||!message){showMsg('notifMsg','error','Fill in title and message.');return;}
+  try{const r=await api('POST','/api/admin/notify',{title,message,type:'GENERAL',targetRole:role||null,recipientId:null});if(r.success){showMsg('notifMsg','success','Notification sent!');document.getElementById('notifTitle').value='';document.getElementById('notifMessage').value='';}else showMsg('notifMsg','error',r.message);}catch(e){showMsg('notifMsg','error','Error');}
+}
+
+/* NOTIFICATIONS */
+async function loadNotifications(){
+  const el=document.getElementById('notificationsList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const r=await api('GET',`/api/notifications/${userId}`);
+    if(r&&r.success&&r.data&&r.data.length>0){
+      el.innerHTML=r.data.map(n=>{const isRead=n.read===true;return`<div class="notif-item"><div class="notif-dot ${isRead?'read':''}"></div><div style="flex:1;"><div class="notif-title ${isRead?'read':''}">${n.title||''}</div><div class="notif-msg">${n.message||''}</div><div class="notif-type">${(n.type||'').replace(/_/g,' ')} ${isRead?'· Read':'· <span style="color:var(--accent);">Unread</span>'}</div></div>${!isRead?`<button onclick="markRead(${n.id},this)" class="btn-ghost btn-sm">Mark Read</button>`:''}</div>`;}).join('');
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🔔</div>No notifications</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load notifications</div>';}
+}
+async function markRead(id,btn){
+  await api('PUT',`/api/notifications/${id}/read`);
+  const item=btn.closest('.notif-item');
+  item.querySelector('.notif-dot').classList.add('read');
+  const title=item.querySelector('.notif-title'); if(title)title.classList.add('read');
+  btn.remove();
+}
+
+function logout(){localStorage.clear();window.location.href='/login';}
+
+['hireMaidOverlay','serviceRequestOverlay','rejectWorkOverlay','rejectServiceOverlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget) document.getElementById(id).style.display='none';});
+});
+
+const firstPage=menu[0]?.page||'home';
+document.querySelector(`[data-page="${firstPage}"]`)?.classList.add('active');
+loadHome();
+</script>
+</body>
+</html>

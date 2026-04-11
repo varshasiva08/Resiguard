@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ResiGuard — Register</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 500px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  }
+  .logo { text-align: center; margin-bottom: 28px; }
+  .logo h1 { color: #fff; font-size: 22px; font-weight: 700; }
+  .logo p { color: #94a3b8; font-size: 13px; margin-top: 4px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { display: block; color: #cbd5e1; font-size: 12px; font-weight: 500; margin-bottom: 5px; }
+  input, select {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus { border-color: #3b82f6; }
+  input::placeholder { color: #475569; }
+  select option { background: #1e293b; color: #fff; }
+  .extra-fields { display: none; margin-top: 4px; }
+  .extra-fields.visible { display: block; }
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.9; }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .error {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fca5a5;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .success {
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #86efac;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .login-link { text-align: center; color: #64748b; font-size: 13px; margin-top: 16px; }
+  .login-link a { color: #3b82f6; text-decoration: none; }
+  .section-title {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 16px 0 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>🏘️ ResiGuard</h1>
+    <p>Create your account</p>
+  </div>
+
+  <div class="section-title">Basic Information</div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Your name"/>
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="text" id="phone" placeholder="10-digit number"/>
+    </div>
+    <div class="form-group full">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="you@example.com"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Min 6 chars"/>
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="role" onchange="showRoleFields()">
+        <option value="">Select role...</option>
+        <option value="RESIDENT">Resident</option>
+        <option value="GUEST">Guest</option>
+        <option value="MAID">Maid</option>
+        <option value="SERVICE_PROVIDER">Service Provider</option>
+        <option value="SECURITY_GUARD">Security Guard</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Resident fields -->
+  <div id="residentFields" class="extra-fields">
+    <div class="section-title">Residence Details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Flat Number</label>
+        <input type="text" id="flatNumber" placeholder="e.g. A-101"/>
+      </div>
+      <div class="form-group">
+        <label>Building Name</label>
+        <input type="text" id="buildingName" placeholder="e.g. Sunrise Apts"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Maid fields -->
+  <div id="maidFields" class="extra-fields">
+    <div class="section-title">Maid Details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" id="address" placeholder="Your address"/>
+      </div>
+      <div class="form-group">
+        <label>ID Proof Number</label>
+        <input type="text" id="idProofNumber" placeholder="Aadhaar / PAN etc."/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Provider fields -->
+  <div id="providerFields" class="extra-fields">
+    <div class="section-title">Service Details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Business Name</label>
+        <input type="text" id="businessName" placeholder="Your business name"/>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="category">
+          <option value="PLUMBER">Plumber</option>
+          <option value="ELECTRICIAN">Electrician</option>
+          <option value="CARPENTER">Carpenter</option>
+          <option value="CLEANER">Cleaner</option>
+          <option value="PAINTER">Painter</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>License Number</label>
+        <input type="text" id="licenseNumber" placeholder="License / Registration No."/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guard fields -->
+  <div id="guardFields" class="extra-fields">
+    <div class="section-title">Guard Details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Badge Number</label>
+        <input type="text" id="badgeNumber" placeholder="e.g. BADGE-001"/>
+      </div>
+      <div class="form-group">
+        <label>Shift</label>
+        <select id="shift">
+          <option value="Day">Day</option>
+          <option value="Night">Night</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="regBtn" onclick="register()">Create Account</button>
+  <div class="error" id="errorMsg"></div>
+  <div class="success" id="successMsg"></div>
+  <div class="login-link">Already have an account? <a href="/login">Sign in</a></div>
+</div>
+
+<script>
+function showRoleFields() {
+  const role = document.getElementById('role').value;
+  document.getElementById('residentFields').className = 'extra-fields' + (role === 'RESIDENT' ? ' visible' : '');
+  document.getElementById('maidFields').className = 'extra-fields' + (role === 'MAID' ? ' visible' : '');
+  document.getElementById('providerFields').className = 'extra-fields' + (role === 'SERVICE_PROVIDER' ? ' visible' : '');
+  document.getElementById('guardFields').className = 'extra-fields' + (role === 'SECURITY_GUARD' ? ' visible' : '');
+}
+
+async function register() {
+  const btn = document.getElementById('regBtn');
+  const err = document.getElementById('errorMsg');
+  const suc = document.getElementById('successMsg');
+  err.style.display = 'none';
+  suc.style.display = 'none';
+
+  const role = document.getElementById('role').value;
+  if (!role) { showError('Please select a role.'); return; }
+
+  const body = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value,
+    phone: document.getElementById('phone').value.trim(),
+    role
+  };
+
+  if (role === 'RESIDENT') {
+    body.flatNumber = document.getElementById('flatNumber').value.trim();
+    body.buildingName = document.getElementById('buildingName').value.trim();
+  } else if (role === 'MAID') {
+    body.address = document.getElementById('address').value.trim();
+    body.idProofNumber = document.getElementById('idProofNumber').value.trim();
+  } else if (role === 'SERVICE_PROVIDER') {
+    body.businessName = document.getElementById('businessName').value.trim();
+    body.category = document.getElementById('category').value;
+    body.licenseNumber = document.getElementById('licenseNumber').value.trim();
+  } else if (role === 'SECURITY_GUARD') {
+    body.badgeNumber = document.getElementById('badgeNumber').value.trim();
+    body.shift = document.getElementById('shift').value;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
+
+  try {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (data.success) {
+      if (role === 'MAID' || role === 'SERVICE_PROVIDER') {
+        suc.textContent = 'Account created! Your profile is pending admin approval. You can login once approved.';
+        suc.style.display = 'block';
+      } else {
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('userId', data.data.userId);
+        localStorage.setItem('userName', data.data.name);
+        localStorage.setItem('userRole', data.data.role);
+        window.location.href = '/dashboard';
+      }
+    } else {
+      showError(data.message || 'Registration failed.');
+    }
+  } catch (e) {
+    showError('Cannot connect to server.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Create Account';
+  }
+}
+
+function showError(msg) {
+  const err = document.getElementById('errorMsg');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+</script>
+</body>
+</html>

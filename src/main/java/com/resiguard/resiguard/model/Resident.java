@@ -1,0 +1,26 @@
+package com.resiguard.resiguard.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity @Table(name = "residents")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class Resident extends User {
+    @Column(nullable = false) private String flatNumber;
+    @Column(nullable = false) private String buildingName;
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<GuestEntry> guestEntries = new ArrayList<>();
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<WorkRequest> workRequests = new ArrayList<>();
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ServiceRequest> serviceRequests = new ArrayList<>();
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Rating> ratingsGiven = new ArrayList<>();
+}
