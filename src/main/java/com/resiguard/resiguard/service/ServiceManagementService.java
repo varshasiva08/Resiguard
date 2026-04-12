@@ -17,4 +17,17 @@ public interface ServiceManagementService {
     List<WorkRequest> getResidentWorkRequests(Long residentId);
     List<ServiceRequest> getResidentServiceRequests(Long residentId);
     List<WorkRequest> getApprovedMaids();
+    // New: maid proposes amount after accepting
+    WorkRequest proposeMaidAmount(Long requestId, Long maidId, String amount);
+    // New: resident responds to proposed amount
+    WorkRequest respondToMaidAmount(Long requestId, Long residentId, boolean approved);
+    // New: resident terminates maid/service relationship
+    WorkRequest terminateWorkRequest(Long requestId, Long residentId);
+    ServiceRequest terminateServiceRequest(Long requestId, Long residentId);
+    // New: provider marks service as completed
+    ServiceRequest markServiceCompleted(Long requestId, Long providerId);
+    // New: maid marks work as completed
+    WorkRequest markWorkCompleted(Long requestId, Long maidId);
+    // New: resident removes/cancels guest entry
+    void cancelGuestEntry(Long entryId, Long residentId);
 }

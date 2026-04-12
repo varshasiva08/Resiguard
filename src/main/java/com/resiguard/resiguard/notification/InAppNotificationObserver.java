@@ -20,13 +20,17 @@ public class InAppNotificationObserver implements NotificationObserver {
         this.notifRepo = notifRepo; this.userRepo = userRepo;
         publisher.addObserver(this);
     }
+
     @Override
     public void update(NotificationEvent event) {
         Optional<User> user = userRepo.findById(event.getRecipientId());
         if (user.isEmpty()) return;
         Notification n = new Notification();
-        n.setRecipient(user.get()); n.setTitle(event.getTitle());
-        n.setMessage(event.getMessage()); n.setType(event.getType());
+        n.setRecipient(user.get());
+        n.setTitle(event.getTitle());
+        n.setMessage(event.getMessage());
+        n.setType(event.getType());
+        n.setRead(false);
         notifRepo.save(n);
         log.info("[NOTIF] Saved for user {}: {}", event.getRecipientId(), event.getTitle());
     }

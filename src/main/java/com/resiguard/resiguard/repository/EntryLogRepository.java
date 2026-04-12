@@ -5,4 +5,5 @@ import java.util.List;
 public interface EntryLogRepository extends JpaRepository<EntryLog, Long> {
     List<EntryLog> findByGuestEntryId(Long guestEntryId);
     List<EntryLog> findByGuardId(Long guardId);
+    List<EntryLog> findByGuestEntryResidentIdOrderByLoggedAtDesc(Long residentId);
 }

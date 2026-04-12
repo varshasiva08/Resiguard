@@ -29,4 +29,11 @@ public class WorkRequest {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private String rejectionReason;
+
+    // Maid proposes amount after accepting
+    private String proposedAmount;          // e.g. "₹3000/month" - set by maid after accepting
+    @Enumerated(EnumType.STRING)
+    private AmountStatus amountStatus = AmountStatus.NONE;  // NONE, PROPOSED, APPROVED, REJECTED
+
+    public enum AmountStatus { NONE, PROPOSED, APPROVED, REJECTED }
 }

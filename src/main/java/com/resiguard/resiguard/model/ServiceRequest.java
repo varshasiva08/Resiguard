@@ -27,4 +27,5 @@ public class ServiceRequest {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private String rejectionReason;
+    private LocalDateTime completedAt;    // set when provider marks as done
 }

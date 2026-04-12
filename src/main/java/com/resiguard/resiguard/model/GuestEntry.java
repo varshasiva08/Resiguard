@@ -27,4 +27,8 @@ public class GuestEntry {
     private LocalDateTime requestedAt = LocalDateTime.now();
     private LocalDateTime decidedAt;
     private String rejectionReason;
+
+    // Track whether exit has been logged (passcode expired)
+    @Column(name = "pass_code_expired", nullable = false)
+    private boolean passCodeExpired = false;
 }

@@ -20,13 +20,13 @@
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px;line-height:1.5;}
   ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:transparent;} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
 
+  /* SIDEBAR */
   .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:10;}
   .sidebar-logo{padding:20px 18px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
   .logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#1f6feb,#388bfd);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
   .logo-text{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.3px;}
   .logo-sub{font-size:11px;color:var(--text3);margin-top:1px;}
   .nav{flex:1;padding:12px 10px;overflow-y:auto;}
-  .nav-section{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);padding:10px 8px 5px;}
   .nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.12s;margin-bottom:1px;user-select:none;}
   .nav-item:hover{background:rgba(255,255,255,0.05);color:var(--text);}
   .nav-item.active{background:rgba(88,166,255,0.12);color:var(--accent);}
@@ -40,33 +40,52 @@
   .btn-logout{width:100%;padding:7px;border-radius:var(--radius);background:var(--red-dim);border:1px solid rgba(248,81,73,0.2);color:var(--red);font-size:12px;font-weight:500;cursor:pointer;transition:background 0.15s;font-family:inherit;}
   .btn-logout:hover{background:rgba(248,81,73,0.22);}
 
+  /* MAIN */
   .main{margin-left:var(--sidebar-w);flex:1;padding:28px 32px;min-height:100vh;}
   .page{display:none;} .page.active{display:block;}
   .page-header{margin-bottom:22px;}
   .page-title{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.4px;}
   .page-sub{font-size:13px;color:var(--text2);margin-top:3px;}
 
-  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;}
-  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:border-color 0.15s;}
-  .stat-card:hover{border-color:var(--border2);}
-  .stat-icon{font-size:20px;margin-bottom:10px;}
-  .stat-value{font-size:26px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;}
-  .stat-label{font-size:12px;color:var(--text2);margin-top:3px;}
-
+  /* CARDS */
   .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;}
   .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
   .card-title{font-size:14px;font-weight:600;color:var(--text);}
 
+  /* STATS GRID */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+  .stat-icon{font-size:22px;margin-bottom:8px;}
+  .stat-val{font-size:24px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;}
+  .stat-label{font-size:11px;color:var(--text2);margin-top:4px;}
+
+  /* SUMMARY LIST */
+  .summary-list{display:flex;flex-direction:column;gap:0;}
+  .summary-item{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .summary-item:last-child{border-bottom:none;}
+  .summary-item-left{display:flex;flex-direction:column;gap:2px;}
+  .summary-item-name{font-size:13px;font-weight:600;color:var(--text);}
+  .summary-item-sub{font-size:12px;color:var(--text2);}
+  .summary-item-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
+  /* PASS CODE */
+  .pass-code{font-family:'DM Mono',monospace;background:var(--accent-dim);color:var(--accent);padding:4px 12px;border-radius:6px;font-size:13px;letter-spacing:2px;font-weight:600;}
+  .pass-code-expired{font-family:'DM Mono',monospace;background:var(--red-dim);color:var(--red);padding:4px 12px;border-radius:6px;font-size:13px;letter-spacing:1px;font-weight:600;}
+  .pass-code-hero{font-family:'DM Mono',monospace;background:var(--accent-dim);color:var(--accent);padding:10px 20px;border-radius:10px;font-size:22px;letter-spacing:4px;font-weight:700;display:inline-block;margin-top:8px;}
+
+  /* TABLE */
   .tbl-wrap{overflow-x:auto;}
   table{width:100%;border-collapse:collapse;}
   th{text-align:left;padding:9px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--text3);border-bottom:1px solid var(--border);}
   td{padding:11px 14px;font-size:13px;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:middle;}
   tr:last-child td{border-bottom:none;} tr:hover td{background:rgba(255,255,255,0.015);}
 
+  /* BADGES */
   .badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.3px;}
   .badge-green{background:var(--green-dim);color:#3fb950;} .badge-yellow{background:var(--yellow-dim);color:#e3b341;}
   .badge-red{background:var(--red-dim);color:#f85149;} .badge-blue{background:var(--accent-dim);color:var(--accent);}
 
+  /* FORMS */
   .form-group{margin-bottom:14px;}
   .form-group label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;}
   .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color 0.15s;}
@@ -76,28 +95,39 @@
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .form-group textarea{resize:vertical;min-height:80px;}
 
+  /* BUTTONS */
   .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity 0.15s,background 0.15s;border:none;}
   .btn-primary{background:#1f6feb;color:#fff;} .btn-primary:hover{background:#388bfd;} .btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
   .btn-sm{padding:5px 12px;font-size:12px;}
   .btn-success{background:var(--green-dim);border:1px solid rgba(63,185,80,0.25);color:var(--green);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;margin-right:4px;transition:background 0.15s;}
-  .btn-success:hover{background:rgba(63,185,80,0.22);}
+  .btn-success:hover:not(:disabled){background:rgba(63,185,80,0.22);}
+  .btn-success:disabled{opacity:0.4;cursor:not-allowed;}
   .btn-danger{background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);color:var(--red);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
-  .btn-danger:hover{background:rgba(248,81,73,0.22);}
+  .btn-danger:hover:not(:disabled){background:rgba(248,81,73,0.22);}
+  .btn-danger:disabled{opacity:0.4;cursor:not-allowed;}
   .btn-ghost{background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--text2);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.15s;}
   .btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+  .btn-accept-big{flex:1;padding:11px;background:var(--green-dim);border:1px solid rgba(63,185,80,0.3);border-radius:var(--radius);color:var(--green);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-accept-big:hover:not(:disabled){background:rgba(63,185,80,0.25);}
+  .btn-accept-big:disabled{opacity:0.4;cursor:not-allowed;}
+  .btn-reject-big{flex:1;padding:11px;background:var(--red-dim);border:1px solid rgba(248,81,73,0.3);border-radius:var(--radius);color:var(--red);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-reject-big:hover:not(:disabled){background:rgba(248,81,73,0.25);}
+  .btn-reject-big:disabled{opacity:0.4;cursor:not-allowed;}
 
+  /* MESSAGES */
   .msg{padding:9px 13px;border-radius:var(--radius);font-size:13px;margin-top:10px;display:none;}
   .msg.success{background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);color:var(--green);}
   .msg.error{background:var(--red-dim);border:1px solid rgba(248,81,73,0.2);color:var(--red);}
   .empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:13px;}
   .empty-icon{font-size:28px;margin-bottom:8px;}
 
-  .pass-code{font-family:'DM Mono',monospace;background:var(--accent-dim);color:var(--accent);padding:2px 9px;border-radius:6px;font-size:12px;letter-spacing:1px;}
+  /* SEARCH */
   .search-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
   .search-input{flex:1;min-width:180px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s;}
   .search-input:focus{border-color:var(--accent);}
   .search-input::placeholder{color:var(--text3);}
 
+  /* MAID CARDS */
   .maid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
   .maid-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color 0.15s;}
   .maid-card:hover{border-color:var(--border2);}
@@ -105,6 +135,7 @@
   .maid-card-info{font-size:12px;color:var(--text2);margin-bottom:3px;}
   .maid-card-info span{color:var(--text);}
 
+  /* WORK CARDS */
   .work-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;transition:border-color 0.15s;}
   .work-card:hover{border-color:var(--border2);}
   .work-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
@@ -113,11 +144,11 @@
   .work-card-desc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;}
   .work-card-meta{font-size:12px;color:var(--text2);margin-bottom:14px;}
   .work-card-actions{display:flex;gap:10px;}
-  .btn-accept-big{flex:1;padding:11px;background:var(--green-dim);border:1px solid rgba(63,185,80,0.3);border-radius:var(--radius);color:var(--green);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
-  .btn-accept-big:hover{background:rgba(63,185,80,0.25);}
-  .btn-reject-big{flex:1;padding:11px;background:var(--red-dim);border:1px solid rgba(248,81,73,0.3);border-radius:var(--radius);color:var(--red);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
-  .btn-reject-big:hover{background:rgba(248,81,73,0.25);}
 
+  /* REJECTION REASON */
+  .rejection-reason{background:var(--red-dim);border:1px solid rgba(248,81,73,0.2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--red);margin-top:6px;}
+
+  /* OVERLAY / MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:100;align-items:center;justify-content:center;padding:20px;}
   .modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;width:100%;max-width:460px;position:relative;}
   .modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:18px;}
@@ -125,6 +156,7 @@
   .modal-close:hover{color:var(--text);}
   .modal-foot{display:flex;gap:10px;margin-top:18px;}
 
+  /* VERIFY ENTRY */
   .verify-input-row{display:flex;gap:10px;margin-bottom:16px;}
   .verify-code-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;outline:none;transition:border-color 0.15s;}
   .verify-code-input:focus{border-color:var(--accent);}
@@ -133,13 +165,30 @@
   .verify-result-card.ok{background:var(--green-dim);border:1px solid rgba(63,185,80,0.25);}
   .verify-result-card.err{background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);}
 
-  .guard-maid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
-  .guard-maid-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;}
+  /* GUARD MAIDS */
+  .guard-maid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+  .guard-maid-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .guard-maid-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
   .guard-maid-avatar{width:40px;height:40px;background:linear-gradient(135deg,#238636,#2ea043);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
   .guard-maid-name{font-size:14px;font-weight:600;color:var(--text);}
   .guard-maid-flat{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:12px;font-weight:600;padding:2px 10px;border-radius:99px;margin-top:3px;}
   .guard-maid-meta{font-size:12px;color:var(--text2);margin-top:3px;}
+  .guard-maid-actions{display:flex;gap:8px;margin-top:10px;}
 
+  /* GUEST HOME CARD */
+  .guest-pass-card{background:var(--surface2);border:1px solid rgba(88,166,255,0.25);border-radius:12px;padding:20px;margin-bottom:12px;}
+  .guest-pass-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .guest-pass-flat{font-size:14px;font-weight:600;color:var(--text);}
+  .guest-pass-purpose{font-size:12px;color:var(--text2);margin-bottom:12px;}
+  .guest-pass-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:4px;}
+
+  /* GUARD ACTIVE GUEST */
+  .active-guest-card{background:var(--surface2);border:1px solid rgba(63,185,80,0.2);border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .active-guest-info{}
+  .active-guest-name{font-size:14px;font-weight:600;color:var(--text);}
+  .active-guest-sub{font-size:12px;color:var(--text2);margin-top:2px;}
+
+  /* NOTIFICATIONS */
   .notif-item{padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
   .notif-item:last-child{border-bottom:none;}
   .notif-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;}
@@ -148,9 +197,49 @@
   .notif-title.read{color:var(--text2);font-weight:400;}
   .notif-msg{font-size:12px;color:var(--text2);margin-top:2px;}
   .notif-type{font-size:11px;color:var(--text3);margin-top:3px;}
+
+  /* RATING STARS */
+  .stars-row{display:flex;gap:6px;margin-bottom:10px;}
+  .star-btn{font-size:22px;cursor:pointer;color:var(--text3);transition:color 0.1s;background:none;border:none;padding:0;line-height:1;}
+  .star-btn.on{color:var(--yellow);}
+  .star-btn:hover{color:var(--yellow);}
+
+  /* RATING DISPLAY */
+  .rating-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
+  .rating-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+  .rating-card-name{font-size:13px;font-weight:600;color:var(--text);}
+  .rating-card-stars{color:var(--yellow);font-size:14px;}
+  .rating-card-comment{font-size:12px;color:var(--text2);margin-top:4px;}
+  .rating-card-date{font-size:11px;color:var(--text3);margin-top:4px;}
+
+  /* RATE WIDGET */
+  .rate-widget{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px;margin-top:10px;}
+  .rate-widget-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
+  .rate-widget-done{color:var(--green);font-size:13px;font-weight:600;padding:8px 0;}
+
+  .activity-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .activity-row:last-child{border-bottom:none;}
+  .activity-icon{width:34px;height:34px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+  .activity-body{flex:1;min-width:0;}
+  .activity-who{font-size:13px;font-weight:600;color:var(--text);}
+  .activity-sub{font-size:12px;color:var(--text2);margin-top:2px;}
+
+  /* AMOUNT PROPOSAL */
+  .amount-proposal{background:rgba(210,153,34,0.10);border:1px solid rgba(210,153,34,0.25);border-radius:10px;padding:13px;margin-top:10px;}
+  .amount-proposal-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--yellow);margin-bottom:6px;}
+  .amount-badge{font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:var(--yellow);margin-bottom:10px;}
+  .amount-input-row{display:flex;gap:8px;align-items:flex-end;margin-bottom:10px;}
+  .amount-input-row input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:8px 12px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;outline:none;font-weight:600;}
+  .amount-input-row input:focus{border-color:var(--yellow);}
+  .btn-complete{background:rgba(88,166,255,0.12);border:1px solid rgba(88,166,255,0.25);color:var(--accent);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+  .btn-complete:hover{background:rgba(88,166,255,0.22);}
+  .btn-terminate{background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);color:var(--red);padding:5px 12px;font-size:12px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;margin-left:4px;}
+  .btn-terminate:hover{background:rgba(248,81,73,0.22);}
+  .amount-actions{display:flex;gap:8px;margin-top:8px;}
 </style>
 </head>
 <body>
+
 
 <div class="sidebar">
   <div class="sidebar-logo">
@@ -176,11 +265,11 @@
   <div class="page active" id="page-home">
     <div class="page-header">
       <div class="page-title">Welcome back, <span id="welcomeName"></span> 👋</div>
-      <div class="page-sub">Here's what's happening in your community today.</div>
+      <div class="page-sub" id="welcomeSub"></div>
     </div>
-    <div class="stats-grid" id="homeStats"></div>
+    <div id="homeContent"></div>
     <div class="card">
-      <div class="card-title" style="margin-bottom:14px;">Recent Notifications</div>
+      <div class="card-title" style="margin-bottom:14px;">🔔 Unread Notifications</div>
       <div id="recentNotifs"><div class="empty"><div class="empty-icon">🔔</div>Loading…</div></div>
     </div>
   </div>
@@ -202,9 +291,15 @@
         <button class="btn btn-primary" onclick="searchMaids()">Search</button>
         <button class="btn btn-ghost" onclick="document.getElementById('maidSearch').value='';searchMaids()">Show All</button>
       </div>
-      <div id="maidsList"><div class="empty"><div class="empty-icon">🧹</div>Click Search to find maids</div></div>
+      <div id="maidsList"><div class="empty"><div class="empty-icon">🧹</div>Loading…</div></div>
     </div>
     <div class="msg" id="maidsPageMsg"></div>
+  </div>
+
+  <!-- MY MAID REQUESTS + RATING (Resident) -->
+  <div class="page" id="page-my-maids">
+    <div class="page-header"><div class="page-title">My Maid Requests</div><div class="page-sub">View, manage, and rate your maid arrangements.</div></div>
+    <div id="myMaidsList"><div class="empty"><div class="empty-icon">🧹</div>Loading…</div></div>
   </div>
 
   <!-- SERVICE PROVIDERS (Resident) -->
@@ -224,9 +319,15 @@
         <button class="btn btn-primary" onclick="searchProviders()">Search</button>
         <button class="btn btn-ghost" onclick="document.getElementById('providerSearch').value='';document.getElementById('categoryFilter').value='';searchProviders()">Show All</button>
       </div>
-      <div id="providersList"><div class="empty"><div class="empty-icon">🔧</div>Click Search to find providers</div></div>
+      <div id="providersList"><div class="empty"><div class="empty-icon">🔧</div>Loading…</div></div>
     </div>
     <div class="msg" id="providersPageMsg"></div>
+  </div>
+
+  <!-- MY SERVICE REQUESTS + RATING (Resident) -->
+  <div class="page" id="page-my-services">
+    <div class="page-header"><div class="page-title">My Service Requests</div><div class="page-sub">View, manage, and rate your service bookings.</div></div>
+    <div id="myServicesList"><div class="empty"><div class="empty-icon">🔧</div>Loading…</div></div>
   </div>
 
   <!-- REQUEST ENTRY (Guest) -->
@@ -234,7 +335,15 @@
     <div class="page-header"><div class="page-title">Request Entry</div><div class="page-sub">Send a visit request to a resident.</div></div>
     <div class="card" style="max-width:480px;">
       <div class="card-title" style="margin-bottom:14px;">New Entry Request</div>
-      <div class="form-group"><label>Resident ID</label><input type="number" id="entryResidentId" placeholder="Enter Resident's user ID"/></div>
+      <div class="form-group">
+        <label>Door / Flat Number</label>
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="flatSearchInput" placeholder="e.g. A-101, B-202…" style="flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 13px;color:var(--text);font-size:13px;font-family:inherit;outline:none;" oninput="searchResidents()" autocomplete="off"/>
+        </div>
+        <div id="residentDropdown" style="display:none;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);margin-top:4px;max-height:180px;overflow-y:auto;"></div>
+        <input type="hidden" id="entryResidentId"/>
+        <div id="selectedResident" style="margin-top:6px;font-size:12px;color:var(--green);display:none;"></div>
+      </div>
       <div class="form-group"><label>Purpose of Visit</label><input type="text" id="entryPurpose" placeholder="e.g. Family visit, Delivery…"/></div>
       <button class="btn btn-primary" onclick="requestEntry()">Send Request</button>
       <div class="msg" id="entryMsg"></div>
@@ -247,13 +356,26 @@
 
   <!-- WORK REQUESTS (Maid) -->
   <div class="page" id="page-work-requests">
-    <div class="page-header"><div class="page-title">Your Work Requests</div><div class="page-sub">Residents who want to hire you. Accept or decline below.</div></div>
+    <div class="page-header"><div class="page-title">Your Work Requests</div><div class="page-sub">Accept jobs, propose your amount, and mark work complete.</div></div>
     <div id="workRequestsList"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div>
+  </div>
+
+  <!-- MY RATINGS (Maid / Provider) -->
+  <div class="page" id="page-my-ratings">
+    <div class="page-header"><div class="page-title">My Ratings</div><div class="page-sub">See ratings and feedback from residents.</div></div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">⭐ Average Rating</div>
+      <div id="myRatingsAvg"><div class="empty"><div class="empty-icon">⭐</div>Loading…</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">All Reviews</div>
+      <div id="myRatingsList"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div>
+    </div>
   </div>
 
   <!-- SERVICE REQUESTS (Provider) -->
   <div class="page" id="page-service-requests">
-    <div class="page-header"><div class="page-title">Service Requests</div><div class="page-sub">Manage service requests from residents.</div></div>
+    <div class="page-header"><div class="page-title">Service Requests</div><div class="page-sub">Manage service requests. Mark as done when work is complete.</div></div>
     <div class="card"><div class="tbl-wrap" id="serviceRequestsList"><div class="empty"><div class="empty-icon">📋</div>Loading…</div></div></div>
   </div>
 
@@ -270,9 +392,9 @@
     </div>
   </div>
 
-  <!-- APPROVED MAIDS (Guard) -->
+  <!-- APPROVED MAIDS (Guard dedicated page) -->
   <div class="page" id="page-approved-maids">
-    <div class="page-header"><div class="page-title">Approved Maids</div><div class="page-sub">All maids with accepted work requests — use house number for maid entry.</div></div>
+    <div class="page-header"><div class="page-title">Approved Maids</div><div class="page-sub">All maids with accepted work requests — log entry and exit here.</div></div>
     <div class="card"><div id="approvedMaidsList"><div class="empty"><div class="empty-icon">🧹</div>Loading…</div></div></div>
   </div>
 
@@ -320,8 +442,11 @@
     <div class="modal-title" id="hireMaidTitle">Hire Maid</div>
     <input type="hidden" id="hireMaidId"/>
     <input type="hidden" id="hireMaidName"/>
+    <div id="hireMaidTimingWarning" style="display:none;"></div>
     <div class="form-group"><label>Describe the Work</label><textarea id="hireMaidDesc" placeholder="e.g. Daily cleaning, cooking, laundry…"></textarea></div>
-    <div class="form-group"><label>Preferred Work Timings</label><input type="text" id="hireMaidTimings" placeholder="e.g. 7am – 9am, Mon–Sat"/></div>
+    <div class="form-group"><label>Preferred Work Timings</label><input type="text" id="hireMaidTimings" placeholder="e.g. 7am – 9am, Mon–Sat"/>
+      <div id="hireMaidTimingConflict" style="display:none;"></div>
+    </div>
     <div class="form-group"><label>Start Date (optional)</label><input type="date" id="hireMaidStart"/></div>
     <div class="msg" id="hireMaidMsg"></div>
     <div class="modal-foot">
@@ -352,10 +477,10 @@
   <div class="modal">
     <button class="modal-close" onclick="closeRejectWork()">✕</button>
     <div class="modal-title">Decline Work Request</div>
-    <div class="form-group"><label>Reason (optional)</label><input type="text" id="rejectWorkReason" placeholder="e.g. Already booked, location too far…"/></div>
+    <div class="form-group"><label>Reason (optional — shown to resident)</label><input type="text" id="rejectWorkReason" placeholder="e.g. Already booked, location too far…"/></div>
     <input type="hidden" id="rejectWorkId"/>
     <div class="modal-foot">
-      <button class="btn btn-danger" style="flex:1;" onclick="submitRejectWork()">Decline</button>
+      <button class="btn-danger" style="flex:1;padding:9px 16px;border-radius:var(--radius);font-weight:600;font-family:inherit;cursor:pointer;font-size:13px;" onclick="submitRejectWork()">Decline</button>
       <button class="btn btn-ghost" onclick="closeRejectWork()">Cancel</button>
     </div>
   </div>
@@ -366,28 +491,32 @@
   <div class="modal">
     <button class="modal-close" onclick="closeRejectService()">✕</button>
     <div class="modal-title">Reject Service Request</div>
-    <div class="form-group"><label>Reason (optional)</label><input type="text" id="rejectServiceReason" placeholder="e.g. Not available on that date…"/></div>
+    <div class="form-group"><label>Reason (optional — shown to resident)</label><input type="text" id="rejectServiceReason" placeholder="e.g. Not available on that date…"/></div>
     <input type="hidden" id="rejectServiceId"/>
     <div class="modal-foot">
-      <button class="btn btn-danger" style="flex:1;" onclick="submitRejectService()">Reject</button>
+      <button class="btn-danger" style="flex:1;padding:9px 16px;border-radius:var(--radius);font-weight:600;font-family:inherit;cursor:pointer;font-size:13px;" onclick="submitRejectService()">Reject</button>
       <button class="btn btn-ghost" onclick="closeRejectService()">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
+// ── BOOT ─────────────────────────────────────────────────────────────
 const token=localStorage.getItem('token'),userId=localStorage.getItem('userId'),userName=localStorage.getItem('userName'),userRole=localStorage.getItem('userRole');
 if(!token){window.location.href='/login';}
 document.getElementById('sidebarName').textContent=userName||'User';
 document.getElementById('sidebarRole').textContent=(userRole||'').replace(/_/g,' ');
 document.getElementById('welcomeName').textContent=userName||'User';
 document.getElementById('userAvatarInitial').textContent=(userName||'U')[0].toUpperCase();
+const subMap={RESIDENT:'Manage your visitors, maids and service providers.',MAID:'Review work requests, propose amounts, and track ratings.',SERVICE_PROVIDER:'Manage service bookings, mark jobs done, and track ratings.',SECURITY_GUARD:'Verify entries and manage gate access.',ADMIN:'System overview, approvals and notifications.',GUEST:'Request entry to visit a resident.'};
+document.getElementById('welcomeSub').textContent=subMap[userRole]||'';
 
+// ── NAV ──────────────────────────────────────────────────────────────
 const navMenus={
-  RESIDENT:[{icon:'🏠',label:'Home',page:'home'},{icon:'🚪',label:'Guest Entries',page:'guests'},{icon:'🧹',label:'Find Maids',page:'maids'},{icon:'🔧',label:'Service Providers',page:'providers'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  RESIDENT:[{icon:'🏠',label:'Home',page:'home'},{icon:'🚪',label:'Guest Entries',page:'guests'},{icon:'🧹',label:'Find Maids',page:'maids'},{icon:'📋',label:'My Maid Requests',page:'my-maids'},{icon:'🔧',label:'Service Providers',page:'providers'},{icon:'📋',label:'My Service Requests',page:'my-services'},{icon:'🔔',label:'Notifications',page:'notifications'}],
   GUEST:[{icon:'🏠',label:'Home',page:'home'},{icon:'📥',label:'Request Entry',page:'request-entry'},{icon:'🔔',label:'Notifications',page:'notifications'}],
-  MAID:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Work Requests',page:'work-requests'},{icon:'🔔',label:'Notifications',page:'notifications'}],
-  SERVICE_PROVIDER:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Service Requests',page:'service-requests'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  MAID:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Work Requests',page:'work-requests'},{icon:'⭐',label:'My Ratings',page:'my-ratings'},{icon:'🔔',label:'Notifications',page:'notifications'}],
+  SERVICE_PROVIDER:[{icon:'🏠',label:'Home',page:'home'},{icon:'📋',label:'Service Requests',page:'service-requests'},{icon:'⭐',label:'My Ratings',page:'my-ratings'},{icon:'🔔',label:'Notifications',page:'notifications'}],
   SECURITY_GUARD:[{icon:'🏠',label:'Home',page:'home'},{icon:'✅',label:'Verify Entry',page:'verify'},{icon:'🧹',label:'Approved Maids',page:'approved-maids'},{icon:'🔔',label:'Notifications',page:'notifications'}],
   ADMIN:[{icon:'🏠',label:'Home',page:'home'},{icon:'⚙️',label:'Admin Panel',page:'admin'},{icon:'🔔',label:'Notifications',page:'notifications'}]
 };
@@ -405,7 +534,7 @@ function showPage(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const pe=document.getElementById('page-'+page); if(pe) pe.classList.add('active');
   const ni=document.querySelector(`[data-page="${page}"]`); if(ni) ni.classList.add('active');
-  ({home:loadHome,guests:loadGuestEntries,'request-entry':loadMyEntries,'work-requests':loadWorkRequests,'service-requests':loadServiceRequests,admin:loadAdmin,notifications:loadNotifications,'approved-maids':loadApprovedMaids})[page]?.();
+  ({home:loadHome,guests:loadGuestEntries,'request-entry':loadMyEntries,'work-requests':loadWorkRequests,'service-requests':loadServiceRequests,admin:loadAdmin,notifications:loadNotifications,'approved-maids':loadApprovedMaids,maids:()=>searchMaids(),providers:()=>searchProviders(),'my-maids':loadMyMaids,'my-services':loadMyServices,'my-ratings':loadMyRatings})[page]?.();
 }
 
 async function api(method,url,body){
@@ -414,7 +543,7 @@ async function api(method,url,body){
   const res=await fetch(url,opts); return res.json();
 }
 function statusBadge(s){
-  const map={PENDING:'badge-yellow',APPROVED:'badge-green',REJECTED:'badge-red',ACCEPTED:'badge-green',COMPLETED:'badge-green',ACTIVE:'badge-green',INACTIVE:'badge-red',GOLD:'badge-yellow',SILVER:'badge-blue',BRONZE:'badge-blue',SERVICE_PROVIDER:'badge-blue',MAID:'badge-green',RESIDENT:'badge-blue',SECURITY_GUARD:'badge-yellow',ADMIN:'badge-red'};
+  const map={PENDING:'badge-yellow',APPROVED:'badge-green',REJECTED:'badge-red',ACCEPTED:'badge-green',COMPLETED:'badge-green',ACTIVE:'badge-green',INACTIVE:'badge-red',GOLD:'badge-yellow',SILVER:'badge-blue',BRONZE:'badge-blue',SERVICE_PROVIDER:'badge-blue',MAID:'badge-green',RESIDENT:'badge-blue',SECURITY_GUARD:'badge-yellow',ADMIN:'badge-red',EXPIRED:'badge-red'};
   return `<span class="badge ${map[s]||'badge-blue'}">${(s||'').replace(/_/g,' ')}</span>`;
 }
 function showMsg(id,type,text){
@@ -422,60 +551,305 @@ function showMsg(id,type,text){
   el.className='msg '+type; el.textContent=text; el.style.display='block';
   setTimeout(()=>{el.style.display='none';},5000);
 }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-/* HOME */
+/* ── HOME ──────────────────────────────────────────────────────────── */
 async function loadHome(){
+  // FIX: always load unread notifications for ALL roles
   loadNotificationsPreview();
-  const stats=[];
-  if(userRole==='RESIDENT'){
-    try{
-      const[wr,sr,ge]=await Promise.all([api('GET',`/api/service/resident/${userId}/work-requests`),api('GET',`/api/service/resident/${userId}/service-requests`),api('GET',`/api/visitor/history/resident/${userId}`)]);
-      stats.push({icon:'🚪',label:'Guest Requests',value:ge.success?ge.data.length:'—'});
-      stats.push({icon:'🧹',label:'Maid Requests',value:wr.success?wr.data.length:'—'});
-      stats.push({icon:'🔧',label:'Service Requests',value:sr.success?sr.data.length:'—'});
-      const pg=ge.success?ge.data.filter(e=>e.status==='PENDING').length:0;
-      if(pg>0) stats.push({icon:'⏳',label:'Pending Guest Approvals',value:pg});
-    }catch(e){}
-  }else if(userRole==='MAID'){
-    try{
-      const r=await api('GET',`/api/service/maid/${userId}/history`);
-      if(r.success){stats.push({icon:'📋',label:'Total Requests',value:r.data.length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(w=>w.status==='PENDING').length});stats.push({icon:'✅',label:'Active Jobs',value:r.data.filter(w=>w.status==='ACCEPTED').length});stats.push({icon:'❌',label:'Declined',value:r.data.filter(w=>w.status==='REJECTED').length});}
-    }catch(e){}
-  }else if(userRole==='SERVICE_PROVIDER'){
-    try{
-      const r=await api('GET',`/api/service/provider/${userId}/history`);
-      if(r.success){stats.push({icon:'📋',label:'Total Requests',value:r.data.length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(s=>s.status==='PENDING').length});stats.push({icon:'✅',label:'Accepted',value:r.data.filter(s=>s.status==='ACCEPTED').length});stats.push({icon:'❌',label:'Rejected',value:r.data.filter(s=>s.status==='REJECTED').length});}
-    }catch(e){}
-  }else if(userRole==='SECURITY_GUARD'){
-    try{const r=await api('GET','/api/service/maids/approved');stats.push({icon:'🧹',label:'Approved Maids on Premises',value:r.success?r.data.length:'—'});}catch(e){stats.push({icon:'🧹',label:'Approved Maids',value:'—'});}
-    stats.push({icon:'🏢',label:'Duty Status',value:'On Duty'});stats.push({icon:'🛡️',label:'Gate Security',value:'Active'});
-  }else if(userRole==='GUEST'){
-    try{const r=await api('GET',`/api/visitor/history/guest/${userId}`);if(r.success){stats.push({icon:'📋',label:'Entry Requests',value:r.data.length});stats.push({icon:'✅',label:'Approved',value:r.data.filter(e=>e.status==='APPROVED').length});stats.push({icon:'⏳',label:'Pending',value:r.data.filter(e=>e.status==='PENDING').length});}}catch(e){}
-  }else if(userRole==='ADMIN'){
-    try{const r=await api('GET','/api/admin/report');if(r.success){const d=r.data;stats.push({icon:'👤',label:'Total Users',value:d.totalUsers});stats.push({icon:'🚪',label:'Guest Entries',value:d.totalGuestEntries});stats.push({icon:'🧹',label:'Work Requests',value:d.totalWorkRequests});stats.push({icon:'🔧',label:'Service Requests',value:d.totalServiceRequests});stats.push({icon:'⏳',label:'Pending Approvals',value:d.pendingProfiles});stats.push({icon:'⭐',label:'Total Ratings',value:d.totalRatings});}}catch(e){}
-  }
-  document.getElementById('homeStats').innerHTML=stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div></div>`).join('');
+  const hc=document.getElementById('homeContent'); hc.innerHTML='';
+  if(userRole==='RESIDENT') await loadResidentHome(hc);
+  else if(userRole==='MAID') await loadMaidHome(hc);
+  else if(userRole==='SERVICE_PROVIDER') await loadProviderHome(hc);
+  else if(userRole==='SECURITY_GUARD') await loadGuardHome(hc);
+  else if(userRole==='GUEST') await loadGuestHome(hc);
+  else if(userRole==='ADMIN') await loadAdminHome(hc);
 }
 
+async function loadResidentHome(container){
+  try{
+    const [wrRes,srRes,geRes,logsRes]=await Promise.all([
+      api('GET',`/api/service/resident/${userId}/work-requests`),
+      api('GET',`/api/service/resident/${userId}/service-requests`),
+      api('GET',`/api/visitor/history/resident/${userId}`),
+      api('GET',`/api/visitor/entry-logs/resident/${userId}`)
+    ]);
+    const activeMaids=wrRes.success&&wrRes.data?wrRes.data.filter(w=>w.status==='ACCEPTED'):[];
+    const activeSPs=srRes.success&&srRes.data?srRes.data.filter(s=>s.status==='ACCEPTED'):[];
+    const pendingGuests=geRes.success&&geRes.data?geRes.data.filter(e=>e.status==='PENDING'):[];
+    const logs=logsRes.success&&Array.isArray(logsRes.data)?logsRes.data:[];
+    const stats=[
+      {icon:'🚪',label:'Total Guest Requests',val:geRes.success&&geRes.data?geRes.data.length:0},
+      {icon:'🧹',label:'Active Maid Jobs',val:activeMaids.length},
+      {icon:'🔧',label:'Active Service Bookings',val:activeSPs.length},
+      {icon:'⏳',label:'Pending Approvals',val:pendingGuests.length}
+    ];
+    let pendingAlert='';
+    if(pendingGuests.length>0){
+      pendingAlert=`<div style="background:rgba(210,153,34,0.12);border:1px solid rgba(210,153,34,0.25);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;font-weight:600;color:#d29922;">⏳ ${pendingGuests.length} guest request${pendingGuests.length!==1?'s':''} awaiting your approval</div><button class="btn-ghost" style="font-size:12px;" onclick="showPage('guests')">Review →</button></div>`;
+    }
+
+    // Amount proposals pending
+    const pendingAmounts=wrRes.success&&wrRes.data?wrRes.data.filter(w=>w.amountStatus==='PROPOSED'):[];
+    let amountAlert='';
+    if(pendingAmounts.length>0){
+      amountAlert=`<div style="background:rgba(88,166,255,0.10);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;font-weight:600;color:var(--accent);">💰 ${pendingAmounts.length} maid amount proposal${pendingAmounts.length!==1?'s':''} awaiting your review</div><button class="btn-ghost" style="font-size:12px;" onclick="showPage('my-maids')">Review →</button></div>`;
+    }
+
+    const statsHtml=`<div class="stats-grid">${stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('')}</div>`;
+    const logRows=logs.slice(0,5).map(function(l){
+      const who=l.guestEntry&&l.guestEntry.guest?esc(l.guestEntry.guest.name):'Guest';
+      const action=l.logType==='ENTRY'?'entered':'exited';
+      const guard=l.guard?esc(l.guard.name):'Guard';
+      const icon=l.logType==='ENTRY'?'📥':'📤';
+      const badge=l.logType==='ENTRY'?'badge-green':'badge-blue';
+      return `<div class="activity-row"><div class="activity-icon">${icon}</div><div class="activity-body"><div class="activity-who">${who} ${action} the premises</div><div class="activity-sub">Guard: ${guard}</div></div><span class="badge ${badge}">${l.logType}</span></div>`;
+    });
+    const allRows=logRows;
+    const activityHtml=`<div class="card" style="margin-top:16px;"><div class="card-title" style="margin-bottom:12px;">📋 Recent Gate Activity</div>${allRows.length>0?allRows.join(''):'<div class="empty" style="padding:16px 0;">No recent activity yet.</div>'}</div>`;
+    container.innerHTML=pendingAlert+amountAlert+statsHtml+activityHtml;
+  }catch(e){console.error('loadResidentHome error:',e);container.innerHTML='';}
+}
+
+async function loadMaidHome(container){
+  try{
+    const r=await api('GET',`/api/service/maid/${userId}/history`);
+    const all=r.success?r.data:[];
+    const pending=all.filter(x=>x.status==='PENDING');
+    const accepted=all.filter(x=>x.status==='ACCEPTED');
+    const pendingAmount=accepted.filter(x=>x.amountStatus==='NONE');
+    const stats=[{icon:'📋',label:'Total Requests',val:all.length},{icon:'⏳',label:'Pending',val:pending.length},{icon:'✅',label:'Active Jobs',val:accepted.length}];
+    let amountAlert='';
+    if(pendingAmount.length>0){
+      amountAlert=`<div style="background:rgba(210,153,34,0.12);border:1px solid rgba(210,153,34,0.25);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;font-weight:600;color:var(--yellow);">💰 You have ${pendingAmount.length} accepted job${pendingAmount.length!==1?'s':''} — <button class="btn-ghost" style="font-size:12px;" onclick="showPage('work-requests')">Propose your amount →</button></div>`;
+    }
+    // FIX 3: Show active jobs with full details (house, resident, timings, work)
+    let activeJobsSection='';
+    if(accepted.length>0){
+      const jobCards=accepted.map(w=>`
+        <div style="background:var(--surface2);border:1px solid rgba(63,185,80,0.2);border-radius:10px;padding:14px 16px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--text);">🏠 Flat ${esc(w.resident?.flatNumber||'—')}, ${esc(w.resident?.buildingName||'')}</div>
+              <div style="font-size:12px;color:var(--text2);">👤 ${esc(w.resident?.name||'—')}</div>
+            </div>
+            <span class="badge badge-green">ACTIVE</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">📝 ${esc(w.description||'—')}</div>
+          ${w.workTimings?`<div style="font-size:12px;color:var(--accent);">⏰ ${esc(w.workTimings)}</div>`:''}
+          ${w.startDate?`<div style="font-size:12px;color:var(--text2);">📅 Start: ${esc(w.startDate)}</div>`:''}
+          ${w.amountStatus==='APPROVED'?`<div style="font-size:12px;color:var(--green);margin-top:4px;">💰 Agreed: ${esc(w.proposedAmount||'—')}</div>`:''}
+        </div>`).join('');
+      activeJobsSection=`<div class="card" style="margin-bottom:18px;">
+        <div class="card-title" style="margin-bottom:12px;">✅ Active Jobs (${accepted.length})</div>
+        ${jobCards}
+      </div>`;
+    }
+    container.innerHTML=`<div class="stats-grid">${stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('')}</div>${amountAlert}${activeJobsSection}`;
+  }catch(e){}
+}
+
+async function loadProviderHome(container){
+  try{
+    const r=await api('GET',`/api/service/provider/${userId}/history`);
+    const all=r.success?r.data:[];
+    const accepted=all.filter(x=>x.status==='ACCEPTED');
+    const stats=[{icon:'📋',label:'Total Requests',val:all.length},{icon:'⏳',label:'Pending',val:all.filter(x=>x.status==='PENDING').length},{icon:'✅',label:'Accepted',val:accepted.length}];
+    let markAlert='';
+    if(accepted.length>0){
+      markAlert=`<div style="background:rgba(88,166,255,0.10);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;font-weight:600;color:var(--accent);">🔧 ${accepted.length} active job${accepted.length!==1?'s':''} — <button class="btn-ghost" style="font-size:12px;" onclick="showPage('service-requests')">Mark as done →</button></div>`;
+    }
+    container.innerHTML=`<div class="stats-grid">${stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('')}</div>${markAlert}`;
+  }catch(e){}
+}
+
+const activeMaidIds=new Set();
+async function loadGuardHome(container){
+  try{
+    const [activeRes,maidsRes]=await Promise.all([
+      api('GET','/api/visitor/active-on-premises'),
+      api('GET','/api/service/maids/approved')
+    ]);
+    const activeGuests=activeRes.success?activeRes.data:[];
+    let guestSection='';
+    if(activeGuests.length>0){
+      const guestItems=activeGuests.map(e=>`
+        <div class="active-guest-card" id="agc-${e.id}">
+          <div class="active-guest-info">
+            <div class="active-guest-name">🚶 ${esc(e.guest?.name||'—')}</div>
+            <div class="active-guest-sub">Visiting: ${esc(e.resident?.name||'—')} · Flat ${esc(e.resident?.flatNumber||'—')}, ${esc(e.resident?.buildingName||'')}</div>
+            <div class="active-guest-sub">Purpose: ${esc(e.purpose||'—')}</div>
+          </div>
+          <button class="btn-danger" id="exitbtn-${e.id}" onclick="logExitFromHome(${e.id},this)">📤 Log Exit</button>
+        </div>`).join('');
+      guestSection=`<div class="card" style="margin-bottom:18px;"><div class="card-title" style="margin-bottom:14px;">🏃 Currently on Premises (${activeGuests.length})</div>${guestItems}</div>`;
+    } else {
+      guestSection=`<div class="card" style="margin-bottom:18px;"><div class="card-title" style="margin-bottom:12px;">🏃 Currently on Premises</div><div class="empty" style="padding:16px 0;"><div class="empty-icon" style="font-size:20px;">🏠</div>No guests currently on premises</div></div>`;
+    }
+    const maids=maidsRes.success?maidsRes.data:[];
+    let maidSection='';
+    if(maids.length>0){
+      // FIX 2: Group by maid ID — same maid in multiple flats shows as one card
+      const maidMap=new Map();
+      maids.forEach(w=>{
+        const mid=w.maid?.id;
+        if(!maidMap.has(mid)) maidMap.set(mid,{maid:w.maid,flats:[],timings:[],workRequestId:w.id});
+        maidMap.get(mid).flats.push(`Flat ${esc(w.resident?.flatNumber||'—')}, ${esc(w.resident?.buildingName||'')}`);
+        if(w.workTimings) maidMap.get(mid).timings.push(esc(w.workTimings));
+      });
+      const maidItems=[...maidMap.values()].map(g=>{
+        const maidId=g.maid?.id;
+        const alreadyIn=activeMaidIds.has(String(maidId));
+        const flatsLabel=g.flats.join(', ');
+        const timingsLabel=[...new Set(g.timings)].join(', ');
+        return `<div class="guard-maid-card" id="gmcard-${maidId}">
+          <div class="guard-maid-top">
+            <div class="guard-maid-avatar">🧹</div>
+            <div style="flex:1;">
+              <div class="guard-maid-name">${esc(g.maid?.name||'—')}</div>
+              <div><span class="guard-maid-flat">🏠 ${flatsLabel}</span></div>
+              <div class="guard-maid-meta">📱 ${esc(g.maid?.phone||'—')}</div>
+              ${timingsLabel?`<div class="guard-maid-meta">⏰ ${timingsLabel}</div>`:''}
+            </div>
+          </div>
+          <div class="guard-maid-actions">
+            <button class="btn-success" id="entry-maid-${maidId}" style="flex:1;" ${alreadyIn?'disabled':''} onclick="logMaidEntryHome(${g.workRequestId},${maidId},this)">📥 Log Entry</button>
+            <button class="btn-danger" id="exit-maid-${maidId}" style="flex:1;" ${alreadyIn?'':'disabled'} onclick="logMaidExitHome(${g.workRequestId},${maidId},this)">📤 Log Exit</button>
+          </div>
+        </div>`;
+      }).join('');
+      maidSection=`<div class="card" style="margin-bottom:18px;"><div class="card-title" style="margin-bottom:14px;">🧹 Approved Maids</div><div class="guard-maid-grid">${maidItems}</div></div>`;
+    }
+    const statsHtml=`<div class="stats-grid" style="margin-bottom:18px;"><div class="stat-card"><div class="stat-icon">🏃</div><div class="stat-val">${activeGuests.length}</div><div class="stat-label">On Premises</div></div><div class="stat-card"><div class="stat-icon">🧹</div><div class="stat-val">${maids.length}</div><div class="stat-label">Approved Maids</div></div></div>`;
+    container.innerHTML=statsHtml+guestSection+maidSection;
+  }catch(e){container.innerHTML='<div class="empty">Could not load guard home data</div>';}
+}
+
+async function loadGuestHome(container){
+  try{
+    const r=await api('GET',`/api/visitor/guest/${userId}/active-passes`);
+    const activePasses=r.success?r.data:[];
+    let html='';
+    if(activePasses.length>0){
+      html=activePasses.map(e=>`
+        <div class="guest-pass-card">
+          <div class="guest-pass-card-header">
+            <div><div class="guest-pass-flat">🏠 ${esc(e.resident?.name||'—')} · Flat ${esc(e.resident?.flatNumber||'—')}, ${esc(e.resident?.buildingName||'')}</div></div>
+            ${statusBadge('APPROVED')}
+          </div>
+          <div class="guest-pass-purpose">${esc(e.purpose||'—')}</div>
+          <div class="guest-pass-label">Your Entry Pass Code</div>
+          <div class="pass-code-hero">${esc(e.entryPassCode)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:8px;">Show this code to the security guard at the gate.</div>
+        </div>`).join('');
+    } else {
+      html=`<div class="empty" style="padding:24px 0;"><div class="empty-icon">🔑</div>No active pass codes. Request entry to get a pass code from a resident.</div>`;
+    }
+    container.innerHTML=`<div class="card" style="margin-bottom:18px;"><div class="card-title" style="margin-bottom:14px;">🔑 Your Active Pass Codes</div>${html}</div>`;
+  }catch(e){}
+}
+
+async function loadAdminHome(container){
+  try{
+    const r=await api('GET','/api/admin/report');
+    if(r.success){
+      const d=r.data;
+      const stats=[{icon:'👤',label:'Total Users',val:d.totalUsers},{icon:'🚪',label:'Guest Entries',val:d.totalGuestEntries},{icon:'🧹',label:'Work Requests',val:d.totalWorkRequests},{icon:'🔧',label:'Service Requests',val:d.totalServiceRequests},{icon:'⏳',label:'Pending Approvals',val:d.pendingProfiles},{icon:'⭐',label:'Total Ratings',val:d.totalRatings}];
+      container.innerHTML=`<div class="stats-grid">${stats.map(s=>`<div class="stat-card"><div class="stat-icon">${s.icon}</div><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('')}</div>`;
+    }
+  }catch(e){}
+}
+
+// FIX: loadNotificationsPreview works for ALL roles
 async function loadNotificationsPreview(){
-  const el=document.getElementById('recentNotifs');
+  const el=document.getElementById('recentNotifs'); if(!el) return;
   try{
     const r=await api('GET',`/api/notifications/${userId}/unread`);
-    if(r&&r.success&&r.data&&r.data.length>0){
+    if(r&&r.success&&Array.isArray(r.data)&&r.data.length>0){
       const badge=document.getElementById('navNotifCount');
       if(badge){badge.textContent=r.data.length;badge.style.display='';}
-      el.innerHTML=r.data.slice(0,5).map(n=>`<div class="notif-item"><div class="notif-dot"></div><div style="flex:1;"><div class="notif-title">${n.title||''}</div><div class="notif-msg">${n.message||''}</div><div class="notif-type">${(n.type||'').replace(/_/g,' ')}</div></div></div>`).join('');
-    }else{el.innerHTML='<div class="empty"><div class="empty-icon">✓</div>All caught up — no unread notifications</div>';}
+      el.innerHTML=r.data.map(n=>`
+        <div class="notif-item">
+          <div class="notif-dot"></div>
+          <div style="flex:1;">
+            <div class="notif-title">${esc(n.title||'')}</div>
+            <div class="notif-msg">${esc(n.message||'')}</div>
+            <div class="notif-type">${(n.type||'').replace(/_/g,' ')} · <span style="color:var(--accent);">Unread</span></div>
+          </div>
+          <button onclick="markReadHome(${n.id},this)" class="btn-ghost btn-sm" style="flex-shrink:0;">Mark read</button>
+        </div>`).join('');
+    }else{
+      el.innerHTML='<div class="empty"><div class="empty-icon">✓</div>All caught up — no unread notifications</div>';
+      const badge=document.getElementById('navNotifCount'); if(badge) badge.style.display='none';
+    }
   }catch(e){el.innerHTML='<div class="empty">Could not load notifications</div>';}
 }
 
-/* GUEST ENTRIES */
+async function markReadHome(id,btn){
+  await api('PUT',`/api/notifications/${id}/read`);
+  const row=btn.closest('.notif-item'); if(row) row.remove();
+  const remaining=document.querySelectorAll('#recentNotifs .notif-item');
+  if(remaining.length===0) document.getElementById('recentNotifs').innerHTML='<div class="empty"><div class="empty-icon">✓</div>All caught up — no unread notifications</div>';
+  try{
+    const r2=await api('GET',`/api/notifications/${userId}/unread`);
+    const badge=document.getElementById('navNotifCount');
+    if(badge&&r2.success){const cnt=r2.data.length;badge.textContent=cnt;badge.style.display=cnt?'':'none';}
+  }catch(e){}
+}
+
+async function logExitFromHome(entryId,btn){
+  btn.disabled=true; btn.textContent='Logging…';
+  try{
+    const r=await api('POST',`/api/visitor/entry/${entryId}/log?guardId=${userId}&type=EXIT`);
+    if(r.success){ loadHome(); }
+    else{btn.disabled=false;btn.textContent='📤 Log Exit';alert(r.message||'Could not log exit');}
+  }catch(e){btn.disabled=false;btn.textContent='📤 Log Exit';alert('Error logging exit');}
+}
+
+async function logMaidEntryHome(workRequestId,maidId,btn){
+  btn.disabled=true; btn.textContent='Logging…';
+  try{
+    const r=await api('POST',`/api/visitor/maid-entry/log?guardId=${userId}&maidId=${maidId}&workRequestId=${workRequestId}&type=ENTRY`);
+    activeMaidIds.add(String(maidId));
+    btn.textContent='✅ Entered'; btn.disabled=true;
+    // IDs are keyed by maidId — must match the id="exit-maid-${maidId}" set in the card HTML
+    const exitBtn=document.getElementById('exit-maid-'+maidId);
+    if(exitBtn){exitBtn.disabled=false;}
+  }catch(e){btn.disabled=false;btn.textContent='📥 Log Entry';alert('Error logging maid entry');}
+}
+async function logMaidExitHome(workRequestId,maidId,btn){
+  btn.disabled=true; btn.textContent='Logging…';
+  try{
+    const r=await api('POST',`/api/visitor/maid-entry/log?guardId=${userId}&maidId=${maidId}&workRequestId=${workRequestId}&type=EXIT`);
+    activeMaidIds.delete(String(maidId));
+    btn.textContent='✅ Exited'; btn.disabled=true;
+    // IDs are keyed by maidId — must match the id="entry-maid-${maidId}" set in the card HTML
+    const entryBtn=document.getElementById('entry-maid-'+maidId);
+    if(entryBtn){entryBtn.disabled=false;entryBtn.textContent='📥 Log Entry';}
+  }catch(e){btn.disabled=false;btn.textContent='📤 Log Exit';alert('Error logging maid exit');}
+}
+
+/* ── GUEST ENTRIES (Resident) ──────────────────────────────────────── */
 async function loadGuestEntries(){
   const el=document.getElementById('guestEntriesList'); el.innerHTML='<div class="empty">Loading…</div>';
   try{
     const r=await api('GET',`/api/visitor/history/resident/${userId}`);
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<table><tr><th>Guest</th><th>Purpose</th><th>Status</th><th>Pass Code</th><th>Action</th></tr>${r.data.map(e=>`<tr><td style="color:var(--text);font-weight:500;">${e.guest?.name||'—'}</td><td>${e.purpose||'—'}</td><td>${statusBadge(e.status)}</td><td>${e.entryPassCode?`<span class="pass-code">${e.entryPassCode}</span>`:'—'}</td><td>${e.status==='PENDING'?`<button class="btn-success" onclick="decideEntry(${e.id},true)">✓ Approve</button><button class="btn-danger" onclick="decideEntry(${e.id},false)">✗ Reject</button>`:'—'}</td></tr>`).join('')}</table>`;
+      el.innerHTML=`<table><tr><th>Guest</th><th>Purpose</th><th>Status</th><th>Pass Code</th><th>Action</th></tr>${r.data.map(e=>{
+        let passCell='—';
+        if(e.entryPassCode) passCell=e.passCodeExpired?`<span class="pass-code-expired">EXPIRED</span>`:`<span class="pass-code">${esc(e.entryPassCode)}</span>`;
+        const canRemove=(e.status==='APPROVED'||e.status==='PENDING');
+        return `<tr>
+          <td style="color:var(--text);font-weight:500;">${esc(e.guest?.name||'—')}<div style="font-size:11px;color:var(--text3);">${esc(e.guest?.phone||'')}</div></td>
+          <td>${esc(e.purpose||'—')}</td>
+          <td>${statusBadge(e.status)}${e.status==='REJECTED'&&e.rejectionReason?`<div class="rejection-reason">Reason: ${esc(e.rejectionReason)}</div>`:''}</td>
+          <td>${passCell}</td>
+          <td>
+            ${e.status==='PENDING'?`<button class="btn-success" onclick="decideEntry(${e.id},true)">✓ Approve</button><button class="btn-danger" onclick="decideEntry(${e.id},false)">✗ Reject</button>`:''}
+            ${canRemove?`<button class="btn-terminate" style="margin-left:4px;" onclick="removeGuest(${e.id})">🗑 Remove</button>`:''}
+          </td>
+        </tr>`;
+      }).join('')}</table>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">🚪</div>No guest entry requests yet</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
 }
@@ -483,14 +857,72 @@ async function decideEntry(entryId,approved){
   const reason=approved?null:prompt('Rejection reason (optional):');
   try{const r=await api('PUT',`/api/visitor/entry/${entryId}/decide?residentId=${userId}`,{approved,rejectionReason:reason});if(r.success)loadGuestEntries();else alert(r.message);}catch(e){alert('Error');}
 }
+async function removeGuest(entryId){
+  if(!confirm('Remove this guest entry? The guest will be notified.')) return;
+  try{
+    const r=await api('PUT',`/api/service/guest-entry/${entryId}/cancel?residentId=${userId}`);
+    if(r.success) loadGuestEntries(); else alert(r.message||'Error');
+  }catch(e){alert('Error removing guest');}
+}
 
-/* REQUEST ENTRY (Guest) */
+/* ── REQUEST ENTRY (Guest) ─────────────────────────────────────────── */
+/* FIX 1: Resident search by door/flat number */
+let residentSearchTimeout=null;
+async function searchResidents(){
+  clearTimeout(residentSearchTimeout);
+  const q=document.getElementById('flatSearchInput').value.trim();
+  // Clear selection when user types again
+  document.getElementById('entryResidentId').value='';
+  document.getElementById('selectedResident').style.display='none';
+  if(!q){document.getElementById('residentDropdown').style.display='none';return;}
+  residentSearchTimeout=setTimeout(async()=>{
+    try{
+      const r=await api('GET',`/api/visitor/residents/search?flatNumber=${encodeURIComponent(q)}`);
+      const dd=document.getElementById('residentDropdown');
+      if(r.success&&r.data&&r.data.length>0){
+        dd.style.display='block';
+        dd.innerHTML=r.data.map(res=>`
+          <div onclick="selectResident(${res.id},'${esc(res.flatNumber||'')}','${esc(res.buildingName||'')}','${esc(res.name||'')}')"
+               style="padding:10px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border);"
+               onmouseover="this.style.background='rgba(88,166,255,0.08)'" onmouseout="this.style.background=''">
+            <strong style="color:var(--text);">Flat ${esc(res.flatNumber||'—')}</strong> — ${esc(res.buildingName||'')}
+            <span style="color:var(--text2);font-size:12px;"> · ${esc(res.name||'')}</span>
+          </div>`).join('');
+      }else{
+        dd.style.display='block';
+        dd.innerHTML=`<div style="padding:10px 14px;font-size:13px;color:var(--text3);">No residents found for "${esc(q)}"</div>`;
+      }
+    }catch(e){console.error('Resident search error',e);}
+  },300);
+}
+function selectResident(id,flat,building,name){
+  document.getElementById('entryResidentId').value=id;
+  document.getElementById('flatSearchInput').value=`Flat ${flat}, ${building}`;
+  document.getElementById('residentDropdown').style.display='none';
+  const sel=document.getElementById('selectedResident');
+  sel.textContent=`✓ Sending to: ${name} — Flat ${flat}, ${building}`;
+  sel.style.display='block';
+}
+// Close dropdown when clicking outside
+document.addEventListener('click',function(e){
+  const dd=document.getElementById('residentDropdown');
+  if(dd&&!dd.contains(e.target)&&e.target.id!=='flatSearchInput') dd.style.display='none';
+});
+
 async function requestEntry(){
   const residentId=document.getElementById('entryResidentId').value,purpose=document.getElementById('entryPurpose').value;
-  if(!residentId||!purpose){showMsg('entryMsg','error','Please fill all fields.');return;}
+  if(!residentId){showMsg('entryMsg','error','Please select a resident by searching their door/flat number.');return;}
+  if(!purpose){showMsg('entryMsg','error','Please enter the purpose of visit.');return;}
   try{
     const r=await api('POST',`/api/visitor/guest/${userId}/request`,{residentId:parseInt(residentId),purpose});
-    if(r.success){showMsg('entryMsg','success','Entry request sent! Wait for resident approval.');document.getElementById('entryResidentId').value='';document.getElementById('entryPurpose').value='';loadMyEntries();}
+    if(r.success){
+      showMsg('entryMsg','success','Entry request sent! Wait for resident approval.');
+      document.getElementById('entryResidentId').value='';
+      document.getElementById('flatSearchInput').value='';
+      document.getElementById('entryPurpose').value='';
+      document.getElementById('selectedResident').style.display='none';
+      loadMyEntries();
+    }
     else showMsg('entryMsg','error',r.message);
   }catch(e){showMsg('entryMsg','error','Error: '+(e.message||'Could not send request'));}
 }
@@ -499,22 +931,59 @@ async function loadMyEntries(){
   try{
     const r=await api('GET',`/api/visitor/history/guest/${userId}`);
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<table><tr><th>Resident Flat</th><th>Purpose</th><th>Status</th><th>Pass Code</th></tr>${r.data.map(e=>`<tr><td style="color:var(--text);font-weight:500;">${e.resident?.flatNumber||'—'} — ${e.resident?.buildingName||''}</td><td>${e.purpose||'—'}</td><td>${statusBadge(e.status)}</td><td>${e.entryPassCode?`<span class="pass-code">${e.entryPassCode}</span>`:'—'}</td></tr>`).join('')}</table>`;
+      el.innerHTML=`<table><tr><th>Resident Flat</th><th>Purpose</th><th>Status</th><th>Pass Code</th></tr>${r.data.map(e=>{
+        let passCell='—';
+        if(e.entryPassCode) passCell=e.passCodeExpired?`<span class="pass-code-expired">EXPIRED</span>`:`<span class="pass-code">${esc(e.entryPassCode)}</span>`;
+        return `<tr><td style="color:var(--text);font-weight:500;">${esc(e.resident?.flatNumber||'—')} — ${esc(e.resident?.buildingName||'')}</td><td>${esc(e.purpose||'—')}</td><td>${statusBadge(e.status)}${e.status==='REJECTED'&&e.rejectionReason?`<div class="rejection-reason">Reason: ${esc(e.rejectionReason)}</div>`:''}</td><td>${passCell}</td></tr>`;
+      }).join('')}</table>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No entries yet</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
 }
 
-/* MAIDS */
+/* ── MAIDS SEARCH (Resident) ─────────────────────────────────────────── */
+// Module-level map: maidId -> array of booked workTimings (populated by searchMaids)
+const maidBookingsMap = new Map();
+
 async function searchMaids(){
   const name=document.getElementById('maidSearch').value.trim(),el=document.getElementById('maidsList');
-  el.innerHTML='<div class="empty">Searching…</div>';
+  el.innerHTML='<div class="empty">Loading…</div>';
   try{
-    const r=await api('GET',`/api/service/maids${name?'?name='+encodeURIComponent(name):''}`);
-    if(r.success&&r.data.length>0){
-      el.innerHTML=`<div class="maid-cards">${r.data.map(m=>`<div class="maid-card"><div class="maid-card-name">${m.name}</div><div class="maid-card-info">📱 <span>${m.phone||'—'}</span></div><div class="maid-card-info">⭐ <span>${(m.averageRating||0).toFixed(1)}</span><span style="color:var(--text3);"> (${m.totalRatings||0} ratings)</span></div><div style="margin-top:8px;">${statusBadge(m.status)}</div><button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px;justify-content:center;" onclick="openHireMaidForm(${m.id},'${m.name.replace(/'/g,"\\'")}')">Hire ${m.name.split(' ')[0]}</button></div>`).join('')}</div>`;
+    // Fetch maids and approved-maids list together to detect time conflicts
+    const [maidsRes, approvedRes] = await Promise.all([
+      api('GET',`/api/service/maids${name?'?name='+encodeURIComponent(name):''}`),
+      api('GET','/api/service/maids/approved')
+    ]);
+    // Rebuild the module-level bookings map: maidId -> list of accepted workTimings
+    maidBookingsMap.clear();
+    if(approvedRes.success&&approvedRes.data){
+      approvedRes.data.forEach(w=>{
+        const mid=w.maid?.id;
+        if(!maidBookingsMap.has(mid)) maidBookingsMap.set(mid,[]);
+        if(w.workTimings) maidBookingsMap.get(mid).push(w.workTimings);
+      });
+    }
+    if(maidsRes.success&&maidsRes.data.length>0){
+      el.innerHTML=`<div class="maid-cards">${maidsRes.data.map(m=>{
+        const bookings=maidBookingsMap.get(m.id)||[];
+        const isBooked=bookings.length>0;
+        // Show existing booked timings on the card so resident knows what slots are taken
+        const bookedNote=isBooked
+          ? `<div style="background:var(--yellow-dim);border:1px solid rgba(210,153,34,0.25);border-radius:6px;padding:5px 8px;font-size:11px;color:var(--yellow);margin-top:6px;">⏰ Already working: ${bookings.map(t=>esc(t)).join(', ')}<br/>You can still hire for a different time slot.</div>`
+          : '';
+        // Pass only the maid ID — bookings looked up from maidBookingsMap inside openHireMaidForm
+        return `<div class="maid-card">
+          <div class="maid-card-name">${esc(m.name)}</div>
+          <div class="maid-card-info">📱 <span>${esc(m.phone||'—')}</span></div>
+          <div class="maid-card-info">⭐ <span>${(m.averageRating||0).toFixed(1)}</span><span style="color:var(--text3);"> (${m.totalRatings||0} ratings)</span></div>
+          <div style="margin-top:8px;">${statusBadge(m.status)}</div>
+          ${bookedNote}
+          <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px;justify-content:center;" onclick="openHireMaidForm(${m.id},'${esc(m.name).replace(/'/g,"\'")}')">Hire ${esc(m.name.split(' ')[0])}</button>
+        </div>`;
+      }).join('')}</div>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">🧹</div>No maids found</div>';}
   }catch(e){el.innerHTML='<div class="empty">Search failed</div>';}
 }
+
 function openHireMaidForm(maidId,maidName){
   document.getElementById('hireMaidOverlay').style.display='flex';
   document.getElementById('hireMaidTitle').textContent='Hire '+maidName;
@@ -523,27 +992,148 @@ function openHireMaidForm(maidId,maidName){
   document.getElementById('hireMaidDesc').value='';
   document.getElementById('hireMaidTimings').value='';
   document.getElementById('hireMaidStart').value='';
+  // Show existing booked slots for this maid at the top of the modal
+  const warningEl=document.getElementById('hireMaidTimingWarning');
+  const timingsInput=document.getElementById('hireMaidTimings');
+  const conflictEl=document.getElementById('hireMaidTimingConflict');
+  const bookings=maidBookingsMap.get(Number(maidId))||[];
+  if(warningEl){
+    if(bookings.length>0){
+      warningEl.innerHTML=`<div style="background:var(--yellow-dim);border:1px solid rgba(210,153,34,0.25);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--yellow);margin-bottom:12px;">ℹ️ This maid is already working at: <strong>${bookings.map(t=>esc(t)).join(', ')}</strong>. You can still hire them — just use a different time slot.</div>`;
+      warningEl.style.display='block';
+    } else {
+      warningEl.style.display='none';
+      warningEl.innerHTML='';
+    }
+  }
+  if(conflictEl) conflictEl.style.display='none';
+  // Wire up live conflict check as resident types their desired time slot
+  if(timingsInput){
+    timingsInput.oninput=function(){ checkTimingConflict(bookings, this.value, conflictEl); };
+  }
+}
+
+// Called live as the resident types in the timings field.
+// Checks whether any word from the typed slot overlaps with the maid's existing booked slots.
+// Shows a warning but does NOT block — resident can still submit.
+function checkTimingConflict(bookings, typed, conflictEl){
+  if(!conflictEl||!typed.trim()||bookings.length===0){ if(conflictEl) conflictEl.style.display='none'; return; }
+  const typedLower=typed.toLowerCase();
+  // Extract time-like tokens (e.g. "7am", "9", "morning") from the typed string
+  const typedTokens=typedLower.match(/\d{1,2}(?::\d{2})?\s*(?:am|pm)?|morning|afternoon|evening|night/g)||[];
+  let conflict=null;
+  for(const booked of bookings){
+    const bookedLower=booked.toLowerCase();
+    const bookedTokens=bookedLower.match(/\d{1,2}(?::\d{2})?\s*(?:am|pm)?|morning|afternoon|evening|night/g)||[];
+    // If any time token appears in both, flag it
+    for(const tok of typedTokens){
+      if(tok.length>=1 && bookedTokens.some(bt=>bt.startsWith(tok)||tok.startsWith(bt))){
+        conflict=booked; break;
+      }
+    }
+    if(conflict) break;
+  }
+  if(conflict){
+    conflictEl.innerHTML=`<div style="background:var(--red-dim);border:1px solid rgba(248,81,73,0.25);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--red);margin-top:6px;">⚠️ The maid is already booked at <strong>${esc(conflict)}</strong> which overlaps with what you typed. Choose a different slot, or proceed anyway.</div>`;
+    conflictEl.style.display='block';
+  } else {
+    conflictEl.style.display='none';
+  }
 }
 async function submitHireMaid(){
   const maidId=parseInt(document.getElementById('hireMaidId').value),maidName=document.getElementById('hireMaidName').value,desc=document.getElementById('hireMaidDesc').value.trim(),timings=document.getElementById('hireMaidTimings').value.trim(),start=document.getElementById('hireMaidStart').value||null;
   if(!desc){showMsg('hireMaidMsg','error','Please describe the work.');return;}
   try{
     const r=await api('POST',`/api/service/maid/hire/${userId}`,{maidId,description:desc,workTimings:timings,startDate:start});
-    if(r.success){closeHireForm();const m=document.getElementById('maidsPageMsg');m.className='msg success';m.textContent=`Work request sent to ${maidName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}
+    if(r.success){closeHireForm();const m=document.getElementById('maidsPageMsg');if(m){m.className='msg success';m.textContent=`Work request sent to ${maidName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}}
     else showMsg('hireMaidMsg','error',r.message);
   }catch(e){showMsg('hireMaidMsg','error','Error sending request');}
 }
 function closeHireForm(){document.getElementById('hireMaidOverlay').style.display='none';}
 
-/* PROVIDERS */
+/* ── MY MAID REQUESTS + MANAGE (Resident) ────────────────────────────── */
+async function loadMyMaids(){
+  const el=document.getElementById('myMaidsList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const [wrRes,ratedRes]=await Promise.all([
+      api('GET',`/api/service/resident/${userId}/work-requests`),
+      api('GET',`/api/ratings/resident/${userId}`).catch(()=>({success:false,data:[]}))
+    ]);
+    if(wrRes.success&&wrRes.data.length>0){
+      const ratedMaidIds=new Set((ratedRes.success?ratedRes.data:[]).map(r=>r.maid?.id).filter(Boolean));
+      el.innerHTML=wrRes.data.map(w=>{
+        const canRate=w.status==='ACCEPTED'&&!ratedMaidIds.has(w.maid?.id);
+        const canRemove=(w.status==='ACCEPTED'||w.status==='PENDING');
+        // Amount proposal section
+        let amountSection='';
+        if(w.status==='ACCEPTED'){
+          if(w.amountStatus==='PROPOSED'){
+            amountSection=`<div class="amount-proposal">
+              <div class="amount-proposal-title">💰 Maid Proposed Amount</div>
+              <div class="amount-badge">${esc(w.proposedAmount||'—')}</div>
+              <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${esc(w.maid?.name||'Maid')} has proposed this amount for their work. Accept or reject below.</div>
+              <div class="amount-actions">
+                <button class="btn-success" onclick="respondAmount(${w.id},true)">✓ Approve Amount</button>
+                <button class="btn-danger" onclick="respondAmount(${w.id},false)">✗ Reject Amount</button>
+              </div>
+            </div>`;
+          } else if(w.amountStatus==='APPROVED'){
+            amountSection=`<div style="background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:13px;"><span style="color:var(--green);font-weight:600;">✅ Agreed Amount:</span> <span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--text);">${esc(w.proposedAmount||'—')}</span></div>`;
+          } else if(w.amountStatus==='NONE'){
+            amountSection=`<div style="background:rgba(210,153,34,0.08);border:1px solid rgba(210,153,34,0.2);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:12px;color:var(--text2);">💰 Waiting for ${esc(w.maid?.name||'maid')} to propose their amount…</div>`;
+          }
+        }
+        const rateHtml=canRate?`
+          <div class="rate-widget" id="rate-div-maid-${w.id}">
+            <div class="rate-widget-title">⭐ Rate this Maid</div>
+            <div class="stars-row" id="stars-maid-${w.id}">${[1,2,3,4,5].map(n=>`<button class="star-btn" data-val="${n}" onclick="setStars('maid',${w.id},${n})">☆</button>`).join('')}</div>
+            <div class="form-group" style="margin-bottom:10px;"><input type="text" id="comment-maid-${w.id}" placeholder="Optional feedback…"/></div>
+            <button class="btn btn-primary btn-sm" onclick="submitRating('maid',${w.maid?.id},'maid',${w.id})">Submit Rating</button>
+          </div>`:(w.status==='ACCEPTED'&&ratedMaidIds.has(w.maid?.id)?`<div style="font-size:12px;color:var(--text2);margin-top:8px;">✅ You've already rated this maid.</div>`:'');
+        return `<div class="work-card">
+          <div class="work-card-header">
+            <div>
+              <div class="work-card-who">🧹 ${esc(w.maid?.name||'—')}</div>
+              <div class="work-card-flat">📱 ${esc(w.maid?.phone||'—')} · Avg ⭐ ${(w.maid?.averageRating||0).toFixed(1)}</div>
+            </div>
+            ${statusBadge(w.status)}
+          </div>
+          <div class="work-card-desc"><strong style="color:var(--text);font-size:12px;letter-spacing:0.3px;text-transform:uppercase;">Work</strong><br/>${esc(w.description||'—')}</div>
+          <div class="work-card-meta">${w.workTimings?`⏰ ${esc(w.workTimings)}`:''} ${w.startDate?`· 📅 ${esc(w.startDate)}`:''}</div>
+          ${w.status==='REJECTED'&&w.rejectionReason?`<div class="rejection-reason">Reason: ${esc(w.rejectionReason)}</div>`:''}
+          ${amountSection}
+          ${rateHtml}
+          ${canRemove?`<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);"><button class="btn-terminate" onclick="terminateMaid(${w.id})">🗑 Remove ${esc(w.maid?.name?.split(' ')[0]||'Maid')}</button></div>`:''}
+        </div>`;
+      }).join('');
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🧹</div>No maid requests yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+
+async function respondAmount(requestId,approved){
+  try{
+    const r=await api('PUT',`/api/service/maid/request/${requestId}/respond-amount?residentId=${userId}&approved=${approved}`);
+    if(r.success) loadMyMaids(); else alert(r.message||'Error');
+  }catch(e){alert('Error');}
+}
+
+async function terminateMaid(requestId){
+  if(!confirm('Remove this maid from your home? They will be notified.')) return;
+  try{
+    const r=await api('PUT',`/api/service/maid/request/${requestId}/terminate?residentId=${userId}`);
+    if(r.success) loadMyMaids(); else alert(r.message||'Error');
+  }catch(e){alert('Error');}
+}
+
+/* ── SERVICE PROVIDERS SEARCH (Resident) ──────────────────────────────── */
 async function searchProviders(){
   const name=document.getElementById('providerSearch').value.trim(),category=document.getElementById('categoryFilter').value,el=document.getElementById('providersList');
-  el.innerHTML='<div class="empty">Searching…</div>';
+  el.innerHTML='<div class="empty">Loading…</div>';
   const params=new URLSearchParams();if(name)params.append('name',name);if(category)params.append('category',category);
   try{
     const r=await api('GET',`/api/service/providers?${params}`);
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<table><tr><th>Name</th><th>Category</th><th>Business</th><th>Rating</th><th>Action</th></tr>${r.data.map(p=>`<tr><td style="color:var(--text);font-weight:500;">${p.name}</td><td>${p.category||'—'}</td><td>${p.businessName||'—'}</td><td>⭐ ${(p.averageRating||0).toFixed(1)}</td><td><button class="btn-success" onclick="openServiceRequestForm(${p.id},'${p.name.replace(/'/g,"\\'")}')">Request</button></td></tr>`).join('')}</table>`;
+      el.innerHTML=`<table><tr><th>Name</th><th>Category</th><th>Business</th><th>Rating</th><th>Action</th></tr>${r.data.map(p=>`<tr><td style="color:var(--text);font-weight:500;">${esc(p.name)}</td><td>${esc(p.category||'—')}</td><td>${esc(p.businessName||'—')}</td><td>⭐ ${(p.averageRating||0).toFixed(1)}</td><td><button class="btn-success" onclick="openServiceRequestForm(${p.id},'${esc(p.name).replace(/'/g,"\\'")}')">Request</button></td></tr>`).join('')}</table>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">🔧</div>No providers found</div>';}
   }catch(e){el.innerHTML='<div class="empty">Search failed</div>';}
 }
@@ -559,21 +1149,165 @@ async function submitServiceRequest(){
   if(!desc){showMsg('serviceRequestMsg','error','Please describe the service needed.');return;}
   try{
     const r=await api('POST',`/api/service/provider/request/${userId}`,{serviceProviderId:providerId,description:desc,preferredDateTime:dt});
-    if(r.success){closeServiceForm();const m=document.getElementById('providersPageMsg');m.className='msg success';m.textContent=`Service request sent to ${provName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}
+    if(r.success){closeServiceForm();const m=document.getElementById('providersPageMsg');if(m){m.className='msg success';m.textContent=`Service request sent to ${provName}!`;m.style.display='block';setTimeout(()=>m.style.display='none',5000);}}
     else showMsg('serviceRequestMsg','error',r.message);
   }catch(e){showMsg('serviceRequestMsg','error','Error sending request');}
 }
 function closeServiceForm(){document.getElementById('serviceRequestOverlay').style.display='none';}
 
-/* WORK REQUESTS (Maid) — large card UI */
+/* ── MY SERVICE REQUESTS + MANAGE (Resident) ─────────────────────────── */
+async function loadMyServices(){
+  const el=document.getElementById('myServicesList'); el.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const [srRes,ratedRes]=await Promise.all([
+      api('GET',`/api/service/resident/${userId}/service-requests`),
+      api('GET',`/api/ratings/resident/${userId}`).catch(()=>({success:false,data:[]}))
+    ]);
+    if(srRes.success&&srRes.data.length>0){
+      const ratedSpIds=new Set((ratedRes.success?ratedRes.data:[]).map(r=>r.serviceProvider?.id).filter(Boolean));
+      el.innerHTML=srRes.data.map(s=>{
+        const canRate=(s.status==='ACCEPTED'||s.status==='COMPLETED')&&!ratedSpIds.has(s.serviceProvider?.id);
+        const canRemove=s.status==='ACCEPTED';
+        const rateHtml=canRate?`
+          <div class="rate-widget" id="rate-div-sp-${s.id}">
+            <div class="rate-widget-title">⭐ Rate this Provider</div>
+            <div class="stars-row" id="stars-sp-${s.id}">${[1,2,3,4,5].map(n=>`<button class="star-btn" data-val="${n}" onclick="setStars('sp',${s.id},${n})">☆</button>`).join('')}</div>
+            <div class="form-group" style="margin-bottom:10px;"><input type="text" id="comment-sp-${s.id}" placeholder="Optional feedback…"/></div>
+            <button class="btn btn-primary btn-sm" onclick="submitRating('sp',${s.serviceProvider?.id},'sp',${s.id})">Submit Rating</button>
+          </div>`:((s.status==='ACCEPTED'||s.status==='COMPLETED')&&ratedSpIds.has(s.serviceProvider?.id)?`<div style="font-size:12px;color:var(--text2);margin-top:8px;">✅ You've already rated this provider.</div>`:'');
+        return `<div class="work-card">
+          <div class="work-card-header">
+            <div>
+              <div class="work-card-who">🔧 ${esc(s.serviceProvider?.name||'—')}</div>
+              <div class="work-card-flat">${esc(s.serviceProvider?.category||'')}${s.serviceProvider?.businessName?' · '+esc(s.serviceProvider.businessName):''}</div>
+            </div>
+            ${statusBadge(s.status)}
+          </div>
+          <div class="work-card-desc"><strong style="color:var(--text);font-size:12px;letter-spacing:0.3px;text-transform:uppercase;">Service</strong><br/>${esc(s.description||'—')}</div>
+          <div class="work-card-meta">${s.preferredDateTime?`📅 ${esc(s.preferredDateTime)}`:''}</div>
+          ${s.status==='REJECTED'&&s.rejectionReason?`<div class="rejection-reason">Reason: ${esc(s.rejectionReason)}</div>`:''}
+          ${s.status==='COMPLETED'?`<div style="background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);border-radius:8px;padding:8px 13px;margin-top:10px;font-size:12px;color:var(--green);font-weight:600;">✅ Service marked as completed by provider</div>`:''}
+          ${rateHtml}
+          ${canRemove?`<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);"><button class="btn-terminate" onclick="terminateService(${s.id})">🗑 Remove ${esc(s.serviceProvider?.name?.split(' ')[0]||'Provider')}</button></div>`:''}
+        </div>`;
+      }).join('');
+    }else{el.innerHTML='<div class="empty"><div class="empty-icon">🔧</div>No service requests yet</div>';}
+  }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
+}
+
+async function terminateService(requestId){
+  if(!confirm('Remove this service provider booking? They will be notified.')) return;
+  try{
+    const r=await api('PUT',`/api/service/provider/request/${requestId}/terminate?residentId=${userId}`);
+    if(r.success) loadMyServices(); else alert(r.message||'Error');
+  }catch(e){alert('Error');}
+}
+
+/* ── RATING STARS ────────────────────────────────────────────────────── */
+function setStars(type,reqId,val){
+  const containerId=`stars-${type}-${reqId}`;
+  const container=document.getElementById(containerId); if(!container) return;
+  container.querySelectorAll('.star-btn').forEach(btn=>{
+    const n=parseInt(btn.dataset.val);
+    btn.textContent=n<=val?'★':'☆';
+    btn.classList.toggle('on',n<=val);
+  });
+  container.dataset.val=val;
+}
+async function submitRating(entityType,entityId,widgetType,reqId){
+  const containerId=`stars-${widgetType}-${reqId}`;
+  const container=document.getElementById(containerId);
+  const score=parseInt(container?.dataset?.val||'0');
+  const comment=document.getElementById(`comment-${widgetType}-${reqId}`)?.value.trim()||'';
+  if(score<1){alert('Please select a star rating first.');return;}
+  const body={score,comment:comment||null};
+  if(entityType==='maid') body.maidId=entityId; else body.serviceProviderId=entityId;
+  try{
+    const r=await api('POST',`/api/ratings/resident/${userId}`,body);
+    if(r.success){
+      const div=document.getElementById(`rate-div-${widgetType}-${reqId}`);
+      if(div) div.innerHTML=`<div class="rate-widget-done">✅ Rating submitted! Thank you for your feedback.</div>`;
+    }else alert(r.message||'Rating failed');
+  }catch(e){alert('Could not submit rating');}
+}
+
+/* ── MY RATINGS (Maid / Provider) ────────────────────────────────────── */
+async function loadMyRatings(){
+  const elAvg=document.getElementById('myRatingsAvg'),elList=document.getElementById('myRatingsList');
+  elAvg.innerHTML='<div class="empty">Loading…</div>'; elList.innerHTML='<div class="empty">Loading…</div>';
+  try{
+    const url=userRole==='MAID'?`/api/ratings/maid/${userId}`:`/api/ratings/provider/${userId}`;
+    const r=await api('GET',url);
+    if(r.success&&r.data.length>0){
+      const ratings=r.data;
+      const avg=ratings.reduce((s,x)=>s+x.score,0)/ratings.length;
+      elAvg.innerHTML=`<div style="font-size:36px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;">${avg.toFixed(1)} <span style="color:var(--yellow);">⭐</span></div>
+        <div style="font-size:13px;color:var(--text2);margin-top:4px;">Based on ${ratings.length} review${ratings.length!==1?'s':''}</div>
+        <div style="margin-top:10px;font-size:22px;">${[1,2,3,4,5].map(n=>`<span style="color:${n<=Math.round(avg)?'var(--yellow)':'var(--text3)'};">${n<=Math.round(avg)?'★':'☆'}</span>`).join('')}</div>`;
+      elList.innerHTML=ratings.map(rt=>`
+        <div class="rating-card">
+          <div class="rating-card-header">
+            <div class="rating-card-name">${esc(rt.resident?.name||'Resident')}</div>
+            <div class="rating-card-stars">${[1,2,3,4,5].map(n=>n<=rt.score?'★':'☆').join('')}</div>
+          </div>
+          ${rt.comment?`<div class="rating-card-comment">"${esc(rt.comment)}"</div>`:''}
+          <div class="rating-card-date">${rt.ratedAt?new Date(rt.ratedAt).toLocaleDateString():''}</div>
+        </div>`).join('');
+    }else{
+      elAvg.innerHTML='<div style="font-size:22px;color:var(--text3);padding:10px 0;">No ratings yet</div>';
+      elList.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No reviews yet</div>';
+    }
+  }catch(e){elAvg.innerHTML='<div class="empty">Failed to load</div>';elList.innerHTML='';}
+}
+
+/* ── WORK REQUESTS (Maid) — with amount proposal ─────────────────────── */
 async function loadWorkRequests(){
   const el=document.getElementById('workRequestsList'); el.innerHTML='<div class="empty">Loading…</div>';
   try{
     const r=await api('GET',`/api/service/maid/${userId}/history`);
     if(r.success&&r.data.length>0){
       el.innerHTML=r.data.map(w=>{
-        const isPending=w.status==='PENDING';
-        return `<div class="work-card"><div class="work-card-header"><div><div class="work-card-who">👤 ${w.resident?.name||'—'}</div><div class="work-card-flat">🏠 Flat ${w.resident?.flatNumber||'—'}, ${w.resident?.buildingName||''}</div></div>${statusBadge(w.status)}</div><div class="work-card-desc"><strong style="color:var(--text);font-size:12px;letter-spacing:0.3px;text-transform:uppercase;">Work Description</strong><br/>${w.description||'—'}</div><div class="work-card-meta">${w.workTimings?`⏰ <strong>Timings:</strong> ${w.workTimings} &nbsp;&nbsp;`:''}${w.startDate?`📅 <strong>Start:</strong> ${w.startDate}`:''}</div>${isPending?`<div class="work-card-actions"><button class="btn-accept-big" onclick="respondWork(${w.id},true)">✅ Accept Job</button><button class="btn-reject-big" onclick="openRejectWork(${w.id})">❌ Decline</button></div>`:''}</div>`;
+        let amountSection='';
+        if(w.status==='ACCEPTED'){
+          if(w.amountStatus==='NONE'||w.amountStatus===null){
+            amountSection=`<div class="amount-proposal" style="background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.25);">
+              <div class="amount-proposal-title" style="color:var(--accent);">💰 Propose Your Amount</div>
+              <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">Let the resident know your expected payment (e.g. ₹3000/month).</div>
+              <div class="amount-input-row">
+                <input type="text" id="amount-input-${w.id}" placeholder="e.g. ₹3000/month" style="border-color:rgba(88,166,255,0.3);"/>
+                <button class="btn btn-primary btn-sm" onclick="proposeAmount(${w.id})">Send</button>
+              </div>
+            </div>`;
+          } else if(w.amountStatus==='PROPOSED'){
+            amountSection=`<div style="background:rgba(210,153,34,0.08);border:1px solid rgba(210,153,34,0.2);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:13px;color:var(--yellow);">💰 Proposed: <strong style="font-family:'DM Mono',monospace;">${esc(w.proposedAmount||'—')}</strong> — waiting for resident approval…</div>`;
+          } else if(w.amountStatus==='APPROVED'){
+            amountSection=`<div style="background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:13px;"><span style="color:var(--green);font-weight:600;">✅ Agreed Amount:</span> <span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--text);">${esc(w.proposedAmount||'—')}</span></div>`;
+          } else if(w.amountStatus==='REJECTED'){
+            amountSection=`<div class="amount-proposal" style="background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.25);">
+              <div class="amount-proposal-title" style="color:var(--accent);">💰 Resident Rejected Your Amount — Propose Again</div>
+              <div class="amount-input-row">
+                <input type="text" id="amount-input-${w.id}" placeholder="e.g. ₹2500/month"/>
+                <button class="btn btn-primary btn-sm" onclick="proposeAmount(${w.id})">Send</button>
+              </div>
+            </div>`;
+          }
+          // Mark complete button
+          amountSection+=`<div style="margin-top:10px;"><button class="btn-complete" onclick="markWorkDone(${w.id})">✅ Mark Work as Complete</button></div>`;
+        }
+        return `<div class="work-card">
+          <div class="work-card-header">
+            <div>
+              <div class="work-card-who">👤 ${esc(w.resident?.name||'—')}</div>
+              <div class="work-card-flat">🏠 Flat ${esc(w.resident?.flatNumber||'—')}, ${esc(w.resident?.buildingName||'')}</div>
+            </div>
+            ${statusBadge(w.status)}
+          </div>
+          <div class="work-card-desc"><strong style="color:var(--text);font-size:12px;letter-spacing:0.3px;text-transform:uppercase;">Work Description</strong><br/>${esc(w.description||'—')}</div>
+          <div class="work-card-meta">${w.workTimings?`⏰ <strong>Timings:</strong> ${esc(w.workTimings)} &nbsp;&nbsp;`:''}${w.startDate?`📅 <strong>Start:</strong> ${esc(w.startDate)}`:''}</div>
+          ${w.status==='REJECTED'&&w.rejectionReason?`<div class="rejection-reason">Your rejection reason: ${esc(w.rejectionReason)}</div>`:''}
+          ${w.status==='PENDING'?`<div class="work-card-actions"><button class="btn-accept-big" onclick="respondWork(${w.id},true)">✅ Accept Job</button><button class="btn-reject-big" onclick="openRejectWork(${w.id})">❌ Decline</button></div>`:''}
+          ${amountSection}
+        </div>`;
       }).join('');
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No work requests yet</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
@@ -585,19 +1319,43 @@ async function submitRejectWork(){
   closeRejectWork(); await respondWork(id,false,reason);
 }
 async function respondWork(requestId,accepted,preReason){
+  try{const r=await api('PUT',`/api/service/maid/request/${requestId}/respond?maidId=${userId}`,{accepted,reason:preReason||null});if(r.success)loadWorkRequests();else alert(r.message);}catch(e){alert('Error');}
+}
+async function proposeAmount(requestId){
+  const inp=document.getElementById('amount-input-'+requestId);
+  const amount=inp?inp.value.trim():'';
+  if(!amount){alert('Please enter an amount.');return;}
   try{
-    const r=await api('PUT',`/api/service/maid/request/${requestId}/respond?maidId=${userId}`,{accepted,reason:preReason||null});
-    if(r.success)loadWorkRequests(); else alert(r.message);
+    const r=await api('PUT',`/api/service/maid/request/${requestId}/propose-amount?maidId=${userId}`,{amount});
+    if(r.success) loadWorkRequests(); else alert(r.message||'Error');
+  }catch(e){alert('Error proposing amount');}
+}
+async function markWorkDone(requestId){
+  if(!confirm('Mark this work as complete? The resident will be notified to rate you.')) return;
+  try{
+    const r=await api('PUT',`/api/service/maid/request/${requestId}/complete?maidId=${userId}`);
+    if(r.success) loadWorkRequests(); else alert(r.message||'Error');
   }catch(e){alert('Error');}
 }
 
-/* SERVICE REQUESTS (Provider) */
+/* ── SERVICE REQUESTS (Provider) — with mark complete ──────────────────── */
 async function loadServiceRequests(){
   const el=document.getElementById('serviceRequestsList'); el.innerHTML='<div class="empty">Loading…</div>';
   try{
     const r=await api('GET',`/api/service/provider/${userId}/history`);
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<table><tr><th>Resident</th><th>Flat</th><th>Description</th><th>Preferred Time</th><th>Status</th><th>Action</th></tr>${r.data.map(s=>`<tr><td style="color:var(--text);font-weight:500;">${s.resident?.name||'—'}</td><td>${s.resident?.flatNumber||'—'}</td><td>${s.description||'—'}</td><td>${s.preferredDateTime||'—'}</td><td>${statusBadge(s.status)}</td><td>${s.status==='PENDING'?`<button class="btn-success" onclick="respondService(${s.id},true)">✓ Accept</button><button class="btn-danger" onclick="openRejectService(${s.id})">✗ Reject</button>`:'—'}</td></tr>`).join('')}</table>`;
+      el.innerHTML=`<table><tr><th>Resident</th><th>Flat</th><th>Description</th><th>Preferred Time</th><th>Status</th><th>Action</th></tr>${r.data.map(s=>`<tr>
+        <td style="color:var(--text);font-weight:500;">${esc(s.resident?.name||'—')}</td>
+        <td style="color:var(--accent);font-weight:600;">${esc(s.resident?.flatNumber||'—')}</td>
+        <td>${esc(s.description||'—')}${s.status==='REJECTED'&&s.rejectionReason?`<div class="rejection-reason">Reason: ${esc(s.rejectionReason)}</div>`:''}</td>
+        <td>${esc(s.preferredDateTime||'—')}</td>
+        <td>${statusBadge(s.status)}</td>
+        <td>
+          ${s.status==='PENDING'?`<button class="btn-success" onclick="respondService(${s.id},true)">✓ Accept</button><button class="btn-danger" onclick="openRejectService(${s.id})">✗ Reject</button>`:''}
+          ${s.status==='ACCEPTED'?`<button class="btn-complete" onclick="markServiceDone(${s.id})">✅ Mark Done</button>`:''}
+          ${s.status==='COMPLETED'?`<span style="color:var(--green);font-size:12px;font-weight:600;">✅ Done</span>`:''}
+        </td>
+      </tr>`).join('')}</table>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">📋</div>No service requests yet</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
 }
@@ -608,55 +1366,109 @@ async function submitRejectService(){
   closeRejectService(); await respondService(id,false,reason);
 }
 async function respondService(requestId,accepted,preReason){
+  try{const r=await api('PUT',`/api/service/provider/request/${requestId}/respond?providerId=${userId}`,{accepted,reason:preReason||null});if(r.success)loadServiceRequests();else alert(r.message);}catch(e){alert('Error');}
+}
+async function markServiceDone(requestId){
+  if(!confirm('Mark this service as complete? The resident will be asked to rate you.')) return;
   try{
-    const r=await api('PUT',`/api/service/provider/request/${requestId}/respond?providerId=${userId}`,{accepted,reason:preReason||null});
-    if(r.success)loadServiceRequests(); else alert(r.message);
+    const r=await api('PUT',`/api/service/provider/request/${requestId}/complete?providerId=${userId}`);
+    if(r.success) loadServiceRequests(); else alert(r.message||'Error');
   }catch(e){alert('Error');}
 }
 
-/* VERIFY ENTRY (Guard) */
+/* ── VERIFY ENTRY (Guard) ─────────────────────────────────────────────── */
 async function verifyPass(){
   const code=document.getElementById('passCode').value.trim().toUpperCase(),el=document.getElementById('verifyResult');
-  if(!code)return;
+  if(!code) return;
   try{
     const r=await api('GET',`/api/visitor/verify/${code}`);
     if(r.success){
       const e=r.data;
-      el.innerHTML=`<div class="verify-result-card ok"><div style="color:var(--green);font-weight:700;font-size:15px;margin-bottom:10px;">✅ Valid Pass</div><div style="display:grid;gap:6px;font-size:13px;"><div><span style="color:var(--text2);">Guest:</span> <strong style="color:var(--text);">${e.guest?.name||'—'}</strong></div><div><span style="color:var(--text2);">Visiting:</span> <strong style="color:var(--text);">${e.resident?.name||'—'}</strong></div><div><span style="color:var(--text2);">Flat:</span> <strong style="color:var(--accent);">${e.resident?.flatNumber||'—'}, ${e.resident?.buildingName||''}</strong></div><div><span style="color:var(--text2);">Purpose:</span> ${e.purpose||'—'}</div><div><span style="color:var(--text2);">Status:</span> ${statusBadge(e.status)}</div></div><div style="display:flex;gap:10px;margin-top:14px;"><button class="btn-accept-big" style="flex:1;" onclick="logEntry(${e.id},'ENTRY')">📥 Log Entry</button><button class="btn-reject-big" style="flex:1;" onclick="logEntry(${e.id},'EXIT')">📤 Log Exit</button></div></div>`;
+      const activeRes=await api('GET','/api/visitor/active-on-premises');
+      const alreadyIn=activeRes.success&&activeRes.data.some(ge=>ge.id===e.id);
+      el.innerHTML=`<div class="verify-result-card ok">
+        <div style="color:var(--green);font-weight:700;font-size:15px;margin-bottom:10px;">✅ Valid Pass</div>
+        <div style="display:grid;gap:6px;font-size:13px;">
+          <div><span style="color:var(--text2);">Guest:</span> <strong style="color:var(--text);">${esc(e.guest?.name||'—')}</strong></div>
+          <div><span style="color:var(--text2);">Phone:</span> ${esc(e.guest?.phone||'—')}</div>
+          <div><span style="color:var(--text2);">Visiting:</span> <strong style="color:var(--text);">${esc(e.resident?.name||'—')}</strong></div>
+          <div><span style="color:var(--text2);">Flat:</span> <strong style="color:var(--accent);">${esc(e.resident?.flatNumber||'—')}, ${esc(e.resident?.buildingName||'')}</strong></div>
+          <div><span style="color:var(--text2);">Purpose:</span> ${esc(e.purpose||'—')}</div>
+          <div><span style="color:var(--text2);">Status:</span> ${statusBadge(e.status)}</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="btn-accept-big" id="entry-btn-${e.id}" style="flex:1;" ${alreadyIn?'disabled':''} onclick="logEntry(${e.id},'ENTRY',this)">📥 Log Entry</button>
+          <button class="btn-reject-big" id="exit-btn-${e.id}" style="flex:1;" ${alreadyIn?'':'disabled'} onclick="logEntry(${e.id},'EXIT',this)">📤 Log Exit</button>
+        </div>
+        ${alreadyIn?'<div style="font-size:12px;color:var(--text2);margin-top:8px;">⚠️ Guest is already on premises. Click Log Exit when they leave.</div>':''}
+      </div>`;
     }else{
-      el.innerHTML=`<div class="verify-result-card err"><div style="color:var(--red);font-weight:700;font-size:15px;">❌ Invalid or Expired Pass</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">This pass code is not valid. Please ask the resident to share a valid code.</div></div>`;
+      el.innerHTML=`<div class="verify-result-card err"><div style="color:var(--red);font-weight:700;font-size:15px;">❌ Invalid or Expired Pass</div></div>`;
     }
   }catch(e){el.innerHTML=`<div class="verify-result-card err" style="color:var(--red);">Error verifying pass code</div>`;}
 }
-async function logEntry(entryId,type){
+async function logEntry(entryId,type,btn){
+  btn.disabled=true; btn.textContent='Logging…';
   try{
     const r=await api('POST',`/api/visitor/entry/${entryId}/log?guardId=${userId}&type=${type}`);
     if(r.success){
-      document.getElementById('verifyResult').innerHTML=`<div class="verify-result-card ok"><div style="color:var(--green);font-weight:700;font-size:15px;">${type==='ENTRY'?'✅ Entry Logged':'✅ Exit Logged'}</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">Successfully logged. The resident has been notified.</div></div>`;
-      document.getElementById('passCode').value='';
-    }else alert(r.message);
-  }catch(e){alert('Error logging entry');}
+      if(type==='ENTRY'){
+        btn.textContent='✅ Entry Logged';
+        const exitBtn=document.getElementById('exit-btn-'+entryId);
+        if(exitBtn){exitBtn.disabled=false;}
+        loadHome();
+      } else {
+        document.getElementById('verifyResult').innerHTML=`<div class="verify-result-card ok"><div style="color:var(--green);font-weight:700;font-size:15px;">✅ Exit Logged</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">Resident has been notified.</div></div>`;
+        document.getElementById('passCode').value='';
+        loadHome();
+      }
+    }else{btn.disabled=false;btn.textContent=type==='ENTRY'?'📥 Log Entry':'📤 Log Exit';alert(r.message||'Error');}
+  }catch(e){btn.disabled=false;btn.textContent=type==='ENTRY'?'📥 Log Entry':'📤 Log Exit';alert('Error');}
 }
 
-/* APPROVED MAIDS (Guard) */
+/* ── APPROVED MAIDS (Guard) ────────────────────────────────────────────── */
 async function loadApprovedMaids(){
   const el=document.getElementById('approvedMaidsList'); el.innerHTML='<div class="empty">Loading…</div>';
   try{
     const r=await api('GET','/api/service/maids/approved');
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<div style="font-size:12px;color:var(--text2);margin-bottom:14px;">${r.data.length} approved maid${r.data.length!==1?'s':''} found</div><div class="guard-maid-grid">${r.data.map(w=>`<div class="guard-maid-card"><div class="guard-maid-avatar">🧹</div><div style="flex:1;"><div class="guard-maid-name">${w.maid?.name||'—'}</div><div><span class="guard-maid-flat">🏠 Flat ${w.resident?.flatNumber||'—'}, ${w.resident?.buildingName||''}</span></div><div class="guard-maid-meta">📱 ${w.maid?.phone||'—'}</div>${w.workTimings?`<div class="guard-maid-meta">⏰ ${w.workTimings}</div>`:''}</div></div>`).join('')}</div>`;
+      // FIX 2: Group by maid ID — same maid working in multiple flats shown as one card
+      const maidMap=new Map();
+      r.data.forEach(w=>{
+        const mid=w.maid?.id;
+        if(!maidMap.has(mid)) maidMap.set(mid,{maid:w.maid,flats:[],timings:[]});
+        maidMap.get(mid).flats.push(`Flat ${esc(w.resident?.flatNumber||'—')}, ${esc(w.resident?.buildingName||'')}`);
+        if(w.workTimings) maidMap.get(mid).timings.push(esc(w.workTimings));
+      });
+      const uniqueCount=maidMap.size;
+      el.innerHTML=`<div style="font-size:12px;color:var(--text2);margin-bottom:14px;">${uniqueCount} approved maid${uniqueCount!==1?'s':''}</div>
+        <div class="guard-maid-grid">${[...maidMap.values()].map(g=>{
+          const flatsLabel=g.flats.join(', ');
+          const timingsLabel=[...new Set(g.timings)].join(', ');
+          return `<div class="guard-maid-card">
+            <div class="guard-maid-top">
+              <div class="guard-maid-avatar">🧹</div>
+              <div style="flex:1;">
+                <div class="guard-maid-name">${esc(g.maid?.name||'—')}</div>
+                <div><span class="guard-maid-flat">🏠 ${flatsLabel}</span></div>
+                <div class="guard-maid-meta">📱 ${esc(g.maid?.phone||'—')}</div>
+                ${timingsLabel?`<div class="guard-maid-meta">⏰ ${timingsLabel}</div>`:''}
+              </div>
+            </div>
+          </div>`;
+        }).join('')}</div>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">🧹</div>No approved maids at this time</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
 }
 
-/* ADMIN */
+/* ── ADMIN ────────────────────────────────────────────────────────────── */
 async function loadAdmin(){loadPendingProfiles();loadReport();}
 async function loadPendingProfiles(){
   const el=document.getElementById('pendingProfiles');
   try{
     const r=await api('GET','/api/admin/profiles/pending');
     if(r.success&&r.data.length>0){
-      el.innerHTML=`<table><tr><th>Name</th><th>Email</th><th>Role</th><th>Phone</th><th>Action</th></tr>${r.data.map(u=>`<tr><td style="color:var(--text);font-weight:500;">${u.name}</td><td>${u.email}</td><td>${statusBadge(u.role)}</td><td>${u.phone||'—'}</td><td><button class="btn-success" onclick="approveProfile(${u.id})">✓ Approve</button><button class="btn-danger" onclick="rejectProfile(${u.id})">✗ Reject</button></td></tr>`).join('')}</table>`;
+      el.innerHTML=`<table><tr><th>Name</th><th>Email</th><th>Role</th><th>Phone</th><th>Action</th></tr>${r.data.map(u=>`<tr><td style="color:var(--text);font-weight:500;">${esc(u.name)}</td><td>${esc(u.email)}</td><td>${statusBadge(u.role)}</td><td>${esc(u.phone||'—')}</td><td><button class="btn-success" onclick="approveProfile(${u.id})">✓ Approve</button><button class="btn-danger" onclick="rejectProfile(${u.id})">✗ Reject</button></td></tr>`).join('')}</table>`;
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">✅</div>No pending approvals</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load</div>';}
 }
@@ -664,7 +1476,7 @@ async function approveProfile(id){const r=await api('PUT',`/api/admin/profiles/$
 async function rejectProfile(id){const reason=prompt('Rejection reason:');if(!reason)return;const r=await api('PUT',`/api/admin/profiles/${id}/reject?reason=${encodeURIComponent(reason)}`);if(r.success)loadAdmin();else alert(r.message);}
 async function loadReport(){
   const el=document.getElementById('systemReport');
-  try{const r=await api('GET','/api/admin/report');if(r.success){const d=r.data;el.innerHTML=`<div class="stats-grid" style="margin:0;">${Object.entries(d).filter(([k])=>k!=='usersByRole'&&k!=='generatedAt').map(([k,v])=>`<div class="stat-card"><div class="stat-value">${v}</div><div class="stat-label">${k.replace(/([A-Z])/g,' $1').trim()}</div></div>`).join('')}</div>`;}}catch(e){}
+  try{const r=await api('GET','/api/admin/report');if(r.success){const d=r.data;el.innerHTML=`<div class="stats-grid">${Object.entries(d).filter(([k])=>k!=='usersByRole'&&k!=='generatedAt').map(([k,v])=>`<div class="stat-card"><div class="stat-val">${v}</div><div class="stat-label">${k.replace(/([A-Z])/g,' $1').trim()}</div></div>`).join('')}</div>`;}}catch(e){}
 }
 async function sendNotification(){
   const title=document.getElementById('notifTitle').value.trim(),message=document.getElementById('notifMessage').value.trim(),role=document.getElementById('notifRole').value;
@@ -672,13 +1484,25 @@ async function sendNotification(){
   try{const r=await api('POST','/api/admin/notify',{title,message,type:'GENERAL',targetRole:role||null,recipientId:null});if(r.success){showMsg('notifMsg','success','Notification sent!');document.getElementById('notifTitle').value='';document.getElementById('notifMessage').value='';}else showMsg('notifMsg','error',r.message);}catch(e){showMsg('notifMsg','error','Error');}
 }
 
-/* NOTIFICATIONS */
+/* ── NOTIFICATIONS PAGE ─────────────────────────────────────────────── */
 async function loadNotifications(){
   const el=document.getElementById('notificationsList'); el.innerHTML='<div class="empty">Loading…</div>';
   try{
     const r=await api('GET',`/api/notifications/${userId}`);
     if(r&&r.success&&r.data&&r.data.length>0){
-      el.innerHTML=r.data.map(n=>{const isRead=n.read===true;return`<div class="notif-item"><div class="notif-dot ${isRead?'read':''}"></div><div style="flex:1;"><div class="notif-title ${isRead?'read':''}">${n.title||''}</div><div class="notif-msg">${n.message||''}</div><div class="notif-type">${(n.type||'').replace(/_/g,' ')} ${isRead?'· Read':'· <span style="color:var(--accent);">Unread</span>'}</div></div>${!isRead?`<button onclick="markRead(${n.id},this)" class="btn-ghost btn-sm">Mark Read</button>`:''}</div>`;}).join('');
+      el.innerHTML=r.data.map(n=>{
+        // FIX: use n.read (after @JsonProperty fix in Notification model)
+        const isRead=n.read===true;
+        return `<div class="notif-item">
+          <div class="notif-dot ${isRead?'read':''}"></div>
+          <div style="flex:1;">
+            <div class="notif-title ${isRead?'read':''}">${esc(n.title||'')}</div>
+            <div class="notif-msg">${esc(n.message||'')}</div>
+            <div class="notif-type">${(n.type||'').replace(/_/g,' ')} ${isRead?'· Read':'· <span style="color:var(--accent);">Unread</span>'}</div>
+          </div>
+          ${!isRead?`<button onclick="markRead(${n.id},this)" class="btn-ghost btn-sm" style="flex-shrink:0;">Mark Read</button>`:''}
+        </div>`;
+      }).join('');
     }else{el.innerHTML='<div class="empty"><div class="empty-icon">🔔</div>No notifications</div>';}
   }catch(e){el.innerHTML='<div class="empty">Failed to load notifications</div>';}
 }
@@ -693,7 +1517,8 @@ async function markRead(id,btn){
 function logout(){localStorage.clear();window.location.href='/login';}
 
 ['hireMaidOverlay','serviceRequestOverlay','rejectWorkOverlay','rejectServiceOverlay'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget) document.getElementById(id).style.display='none';});
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('click',e=>{if(e.target===e.currentTarget) el.style.display='none';});
 });
 
 const firstPage=menu[0]?.page||'home';

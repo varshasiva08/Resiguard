@@ -6,4 +6,5 @@ public interface RatingService {
     Rating rate(Long residentId, RatingRequest req);
     List<Rating> getMaidRatings(Long maidId);
     List<Rating> getProviderRatings(Long providerId);
+    List<Rating> getRatingsByResident(Long residentId);
 }

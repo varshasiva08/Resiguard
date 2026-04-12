@@ -21,4 +21,9 @@ public class RatingController {
     public ResponseEntity<ApiResponse<?>> providerRatings(@PathVariable Long providerId) {
         return ResponseEntity.ok(ApiResponse.ok("Ratings", ratingService.getProviderRatings(providerId)));
     }
+    // Fix 6: endpoint for resident to check what they've already rated
+    @GetMapping("/resident/{residentId}")
+    public ResponseEntity<ApiResponse<?>> residentRatings(@PathVariable Long residentId) {
+        return ResponseEntity.ok(ApiResponse.ok("Ratings", ratingService.getRatingsByResident(residentId)));
+    }
 }

@@ -23,12 +23,16 @@ public class VisitorServiceImpl implements VisitorService {
     private final SecurityGuardRepository guardRepo;
     private final EntryLogRepository entryLogRepo;
     private final NotificationService notifService;
+    private final MaidRepository maidRepo;
+    private final WorkRequestRepository workRequestRepo;
 
     public VisitorServiceImpl(GuestEntryRepository entryRepo, GuestRepository guestRepo,
                                ResidentRepository residentRepo, SecurityGuardRepository guardRepo,
-                               EntryLogRepository entryLogRepo, NotificationService notifService) {
+                               EntryLogRepository entryLogRepo, NotificationService notifService,
+                               MaidRepository maidRepo, WorkRequestRepository workRequestRepo) {
         this.entryRepo = entryRepo; this.guestRepo = guestRepo; this.residentRepo = residentRepo;
         this.guardRepo = guardRepo; this.entryLogRepo = entryLogRepo; this.notifService = notifService;
+        this.maidRepo = maidRepo; this.workRequestRepo = workRequestRepo;
     }
 
     @Override
@@ -61,7 +65,10 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public GuestEntry verifyPassCode(String passCode) {
-        return entryRepo.findByEntryPassCode(passCode).orElseThrow(() -> new ResourceNotFoundException("Invalid pass code"));
+        GuestEntry entry = entryRepo.findByEntryPassCode(passCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid pass code"));
+        if (entry.isPassCodeExpired()) throw new BadRequestException("Pass code has expired");
+        return entry;
     }
 
     @Override
@@ -71,7 +78,15 @@ public class VisitorServiceImpl implements VisitorService {
         EntryLog log = new EntryLog();
         log.setGuestEntry(entry); log.setGuard(guard); log.setLogType(type); log.setNotes(notes);
         EntryLog saved = entryLogRepo.save(log);
-        // Notify resident about entry/exit
+
+        if (type == EntryLogType.EXIT) {
+            entry.setPassCodeExpired(true);
+            entryRepo.save(entry);
+            notifService.sendToUser(entry.getGuest().getId(), "Exit Logged",
+                    "Your exit has been logged by Guard " + guard.getName() + ". Your pass code has been expired.",
+                    NotificationType.GENERAL);
+        }
+
         String action = (type == EntryLogType.ENTRY) ? "entered" : "exited";
         String guestName = entry.getGuest() != null ? entry.getGuest().getName() : "Your guest";
         notifService.sendToUser(entry.getResident().getId(),
@@ -83,4 +98,34 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override public List<GuestEntry> getResidentHistory(Long residentId) { return entryRepo.findByResidentId(residentId); }
     @Override public List<GuestEntry> getGuestHistory(Long guestId) { return entryRepo.findByGuestId(guestId); }
+    @Override public List<GuestEntry> getActiveGuestsOnPremises() { return entryRepo.findActiveGuestsOnPremises(); }
+    @Override public List<GuestEntry> getGuestActiveApproved(Long guestId) {
+        return entryRepo.findByGuestIdAndStatusAndPassCodeExpired(guestId, GuestStatus.APPROVED, false);
+    }
+    @Override public List<EntryLog> getResidentEntryLogs(Long residentId) {
+        return entryLogRepo.findByGuestEntryResidentIdOrderByLoggedAtDesc(residentId);
+    }
+
+    @Override
+    public void logMaidEntry(Long guardId, Long maidId, Long workRequestId, String type) {
+        SecurityGuard guard = guardRepo.findById(guardId).orElseThrow(() -> new ResourceNotFoundException("Guard not found"));
+        Maid maid = maidRepo.findById(maidId).orElseThrow(() -> new ResourceNotFoundException("Maid not found"));
+        WorkRequest wr = workRequestRepo.findById(workRequestId).orElseThrow(() -> new ResourceNotFoundException("Work request not found"));
+        String action = "ENTRY".equals(type) ? "entered" : "exited";
+        notifService.sendToUser(
+            wr.getResident().getId(),
+            "Maid " + ("ENTRY".equals(type) ? "Entry" : "Exit") + " Alert",
+            maid.getName() + " has " + action + " the premises. Logged by Guard " + guard.getName() + ".",
+            NotificationType.GENERAL
+        );
+    }
+
+    // FIX 1: Search residents by flat/door number for guest entry form
+    @Override
+    public List<Resident> searchResidentsByFlat(String flatNumber) {
+        if (flatNumber == null || flatNumber.isBlank()) {
+            return residentRepo.findAll();
+        }
+        return residentRepo.findByFlatNumberContainingIgnoreCase(flatNumber);
+    }
 }

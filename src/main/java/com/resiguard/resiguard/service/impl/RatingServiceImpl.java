@@ -39,16 +39,25 @@ public class RatingServiceImpl implements RatingService {
                 throw new BadRequestException("Already rated this maid");
             Maid maid = maidRepo.findById(req.maidId).orElseThrow(() -> new ResourceNotFoundException("Maid not found"));
             rating.setMaid(maid); maid.recalculateRating(req.score); maidRepo.save(maid);
-            notifService.sendToUser(maid.getId(), "New Rating", resident.getName() + " rated you " + req.score + "/5", NotificationType.RATING_RECEIVED);
+            // Fix 6: detailed notification with score and comment and updated average
+            String msg = resident.getName() + " gave you " + req.score + "/5 stars."
+                + (req.comment != null && !req.comment.isBlank() ? " Feedback: \"" + req.comment + "\"" : "")
+                + " Your new average rating: " + String.format("%.1f", maid.getAverageRating()) + "/5 (" + maid.getTotalRatings() + " ratings).";
+            notifService.sendToUser(maid.getId(), "New Rating Received", msg, NotificationType.RATING_RECEIVED);
         } else {
             if (ratingRepo.existsByResidentIdAndServiceProviderId(residentId, req.serviceProviderId))
                 throw new BadRequestException("Already rated this provider");
             ServiceProvider sp = spRepo.findById(req.serviceProviderId).orElseThrow(() -> new ResourceNotFoundException("Provider not found"));
             rating.setServiceProvider(sp); sp.recalculateRating(req.score); spRepo.save(sp);
-            notifService.sendToUser(sp.getId(), "New Rating", resident.getName() + " rated you " + req.score + "/5", NotificationType.RATING_RECEIVED);
+            // Fix 6: detailed notification with score and comment and updated average
+            String msg = resident.getName() + " gave you " + req.score + "/5 stars."
+                + (req.comment != null && !req.comment.isBlank() ? " Feedback: \"" + req.comment + "\"" : "")
+                + " Your new average rating: " + String.format("%.1f", sp.getAverageRating()) + "/5 (" + sp.getTotalRatings() + " ratings).";
+            notifService.sendToUser(sp.getId(), "New Rating Received", msg, NotificationType.RATING_RECEIVED);
         }
         return ratingRepo.save(rating);
     }
     @Override public List<Rating> getMaidRatings(Long maidId) { return ratingRepo.findByMaidId(maidId); }
     @Override public List<Rating> getProviderRatings(Long providerId) { return ratingRepo.findByServiceProviderId(providerId); }
+    @Override public List<Rating> getRatingsByResident(Long residentId) { return ratingRepo.findByResidentId(residentId); }
 }

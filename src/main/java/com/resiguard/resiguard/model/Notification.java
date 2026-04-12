@@ -1,6 +1,7 @@
 package com.resiguard.resiguard.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.resiguard.resiguard.model.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,9 +22,12 @@ public class Notification {
     @Column(nullable = false) private String title;
     @Column(nullable = false, length = 1000) private String message;
     @Enumerated(EnumType.STRING) @Column(nullable = false) private NotificationType type;
-    @Column(name = "is_read", nullable = false) private boolean isRead = false;
 
-    // private boolean isRead = false;
+    // Use plain 'read' field name so Jackson serializes as "read" and Spring Data query "ReadFalse" works
+    @Column(name = "is_read", nullable = false)
+    @JsonProperty("read")
+    private boolean read = false;
+
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime readAt;
 }
